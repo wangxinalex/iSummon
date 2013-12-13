@@ -61,6 +61,8 @@
             android:name="com.isummon.ui.ListActivity"
             android:label="@string/title_activity_list">
         </activity>
+        <activity android:name=".ui.RegisterActivity"
+            android:label="注册"/>
     </application>
 
     <supports-screens

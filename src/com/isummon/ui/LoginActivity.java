@@ -27,6 +27,9 @@ import com.isummon.R;
  *
  */
 public class LoginActivity extends Activity {
+
+    private static final int TO_REGISTER = 999;
+
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -85,6 +88,16 @@ public class LoginActivity extends Activity {
         mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == TO_REGISTER && resultCode == RESULT_OK) {
+
+        }
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     /**
      * Button listener for R.id.sign_in_button
      * @param v
@@ -97,7 +110,7 @@ public class LoginActivity extends Activity {
     }
 
     public void register(View v) {
-
+        startActivityForResult(new Intent(this, RegisterActivity.class), TO_REGISTER);
     }
 
     @Override
