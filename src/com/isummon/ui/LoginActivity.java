@@ -96,6 +96,10 @@ public class LoginActivity extends Activity {
         startActivity(intent);
     }
 
+    public void register(View v) {
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
