@@ -71,6 +71,7 @@ public class LoginActivity extends Activity {
                     @Override
                     public boolean onEditorAction(TextView textView, int id,
                                                   KeyEvent keyEvent) {
+
                         if (id == R.id.login || id == EditorInfo.IME_NULL) {
                             attemptLogin();
                             return true;
@@ -82,17 +83,17 @@ public class LoginActivity extends Activity {
         mLoginFormView = findViewById(R.id.login_form);
         mLoginStatusView = findViewById(R.id.login_status);
         mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+    }
 
-        findViewById(R.id.sign_in_button).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        attemptLogin();
-                        Intent intent = new Intent();
-                        intent.setClass(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
+    /**
+     * Button listener for R.id.sign_in_button
+     * @param v
+     */
+    public void login(View v) {
+        attemptLogin();
+        Intent intent = new Intent();
+        intent.setClass(this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -120,32 +121,34 @@ public class LoginActivity extends Activity {
         mEmail = mEmailView.getText().toString();
         mPassword = mPasswordView.getText().toString();
 
-        boolean cancel = false;
+        boolean shouldCancel = false;
         View focusView = null;
 
         // Check for a valid password.
         if (TextUtils.isEmpty(mPassword)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
-            cancel = true;
+            shouldCancel = true;
         } else if (mPassword.length() < 4) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
-            cancel = true;
+            shouldCancel = true;
         }
 
+        // todo email check result overrides pwd check result
         // Check for a valid email address.
         if (TextUtils.isEmpty(mEmail)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
-            cancel = true;
+            shouldCancel = true;
+            // todo email format check
         } else if (!mEmail.contains("@")) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
-            cancel = true;
+            shouldCancel = true;
         }
 
-        if (cancel) {
+        if (shouldCancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
@@ -160,7 +163,9 @@ public class LoginActivity extends Activity {
     }
 
     /**
-     * Shows the progress UI and hides the login form.
+     * Show the progress UI, hides the login form
+     * Or reverse. Depends on <em>show</em> value.
+     * @param show <em>true</em> if should display the status view and dims the forms
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
@@ -204,7 +209,7 @@ public class LoginActivity extends Activity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
