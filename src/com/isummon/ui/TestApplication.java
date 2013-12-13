@@ -16,7 +16,7 @@ public class TestApplication extends Application {
     public boolean m_bKeyRight = true;
     BMapManager mBMapManager = null;
 
-    public static final String strKey = "wzRxtv7pxjjGQ0ATU7AZPNT0";
+    public static final String strKey = "lKKBT2kwTlFOjKPDL3NQdEut";
 
     @Override
     public void onCreate() {
