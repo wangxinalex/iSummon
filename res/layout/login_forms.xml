@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/UserInfoFormContainer">
+
+    <EditText
+        android:id="@+id/login_email"
+        style="@style/UserInfoForm"
+        android:hint="@string/prompt_email"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/password"
+        style="@style/UserInfoForm2"
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <Button
+            android:background="@drawable/login_form"
+            android:layout_marginRight="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_sign_in"
+            android:onClick="login" />
+
+        <Button
+            android:background="@drawable/login_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_register"
+            android:onClick="register" />
+
+    </LinearLayout>
+
+</LinearLayout>

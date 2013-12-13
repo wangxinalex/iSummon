@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/UserInfoFormContainer">
+
+    <EditText
+        android:id="@+id/register_email"
+        style="@style/UserInfoForm"
+        android:hint="@string/prompt_email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/register_nickname"
+        style="@style/UserInfoForm2"
+        android:hint="@string/prompt_nickname"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/register_password"
+        style="@style/UserInfoForm2"
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:id="@+id/register_password_again"
+        style="@style/UserInfoForm2"
+        android:hint="@string/prompt_password_again"
+        android:inputType="textPassword"/>
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <Button
+            android:background="@drawable/login_form"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_sign_in"
+            android:onClick="login" />
+
+        <Button
+            android:background="@drawable/login_form"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_register"
+            android:onClick="register" />
+
+    </RelativeLayout>
+
+</LinearLayout>

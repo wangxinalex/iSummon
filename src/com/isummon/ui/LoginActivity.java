@@ -12,8 +12,10 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.isummon.R;
@@ -63,29 +65,30 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        ViewGroup loginLayout = (ViewGroup) getLayoutInflater().inflate( R.layout.login_forms,
+                (ViewGroup) findViewById(R.id.forms), true);
+
         // Set up the login form.
         mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-        mEmailView = (EditText) findViewById(R.id.email);
+        mEmailView = (EditText) loginLayout.findViewById(R.id.login_email);
         mEmailView.setText(mEmail);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView
-                .setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView textView, int id,
-                                                  KeyEvent keyEvent) {
+        mPasswordView = (EditText) loginLayout.findViewById(R.id.password);
+//        mPasswordView
+//                .setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//                    @Override
+//                    public boolean onEditorAction(TextView textView, int id,
+//                                                  KeyEvent keyEvent) {
+//
+//                        if (id == EditorInfo.IME_NULL) {
+//                            attemptLogin();
+//                            return true;
+//                        }
+//                        return false;
+//                    }
+//                });
 
-                        if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                            attemptLogin();
-                            return true;
-                        }
-                        return false;
-                    }
-                });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mLoginStatusView = findViewById(R.id.login_status);
-        mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+        mLoginFormView = findViewById(R.id.forms);
     }
 
     @Override
@@ -110,7 +113,12 @@ public class LoginActivity extends Activity {
     }
 
     public void register(View v) {
-        startActivityForResult(new Intent(this, RegisterActivity.class), TO_REGISTER);
+        //startActivityForResult(new Intent(this, RegisterActivity.class), TO_REGISTER);
+        LinearLayout formsGroup = (LinearLayout)findViewById(R.id.forms);
+        formsGroup.removeAllViews();
+        ViewGroup registerView = (ViewGroup) getLayoutInflater().inflate(R.layout.register_forms,
+                formsGroup, true);
+        formsGroup.invalidate();
     }
 
     @Override
