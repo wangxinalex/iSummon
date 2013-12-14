@@ -8,6 +8,9 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -21,9 +24,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.isummon.R;
-import com.isummon.ui.LoginRegisterForms;
-
-import java.sql.SQLOutput;
 
 
 /**
@@ -48,6 +48,7 @@ public class LoginActivity extends Activity {
      * The default email to populate the email field with.
      */
     public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+    public static final int ANIMATION_DURATION = 100;
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -61,38 +62,18 @@ public class LoginActivity extends Activity {
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
-    private View mLoginFormView;
-    private View mLoginStatusView;
-    private TextView mLoginStatusMessageView;
+    private ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        getLayoutInflater().inflate( R.layout.login_forms,
-//                (ViewGroup) findViewById(R.id.forms), true);
+
+        findViewById(R.id.register_forms).setTranslationX(getScreenX());
 
         // Set up the login form.
-//        mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-//        mEmailView = (EditText) findViewById(R.id.login_email);
-//        mEmailView.setText(mEmail);
-
+        mEmailView = (EditText) findViewById(R.id.login_email);
         mPasswordView = (EditText) findViewById(R.id.password);
-//        mPasswordView
-//                .setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//                    @Override
-//                    public boolean onEditorAction(TextView textView, int id,
-//                                                  KeyEvent keyEvent) {
-//
-//                        if (id == EditorInfo.IME_NULL) {
-//                            attemptLogin();
-//                            return true;
-//                        }
-//                        return false;
-//                    }
-//                });
-
-        //mLoginFormView = findViewById(R.id.forms);
     }
 
     @Override
@@ -106,36 +87,66 @@ public class LoginActivity extends Activity {
     }
 
     /**
-     * Button listener for R.id.sign_in_button
-     * @param v
+     * do signing in work
      */
     public void login(View v) {
-        attemptLogin();
+        //showSigningInProgress();
+        //attemptLogin();
+        // now, skip the authenticating logic
         Intent intent = new Intent();
         intent.setClass(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * do registering work
+     */
     public void register(View v) {
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-        final View loginForms = findViewById(R.id.login_forms);
-        ValueAnimator loginAnimation = ObjectAnimator.ofFloat(loginForms,
-                "translationX", 0f, -displaymetrics.widthPixels );
-        loginAnimation.setDuration(100);
+    }
+
+    /**
+     * transform to register view
+     */
+    public void toRegister(View v) {
+        ValueAnimator loginAnimation = ObjectAnimator.ofFloat(
+                findViewById(R.id.login_forms),
+                "translationX", 0f, -getScreenX() );
+        loginAnimation.setDuration(ANIMATION_DURATION);
         loginAnimation.setInterpolator(new LinearInterpolator());
         loginAnimation.start();
 
-        View registerForms = findViewById(R.id.register_forms);
-        registerForms.setVisibility(View.VISIBLE);
-        registerForms.setTranslationX(displaymetrics.widthPixels);
-
-        ValueAnimator registerAnimation = ObjectAnimator.ofFloat(registerForms,
-                "translationX", displaymetrics.widthPixels, 0f );
-        registerAnimation.setDuration(100);
+        ValueAnimator registerAnimation = ObjectAnimator.ofFloat(
+                findViewById(R.id.register_forms),
+                "translationX", getScreenX(), 0f );
+        registerAnimation.setDuration(ANIMATION_DURATION);
         registerAnimation.setInterpolator(new LinearInterpolator());
         registerAnimation.start();
+    }
+
+    /**
+     * transform to sign in view
+     */
+    public void toLogIn(View v) {
+        ValueAnimator loginAnimation = ObjectAnimator.ofFloat(
+                findViewById(R.id.login_forms),
+                "translationX", -getScreenX(), 0f );
+        loginAnimation.setDuration(ANIMATION_DURATION);
+        loginAnimation.setInterpolator(new LinearInterpolator());
+        loginAnimation.start();
+
+        ValueAnimator registerAnimation = ObjectAnimator.ofFloat(
+                findViewById(R.id.register_forms),
+                "translationX", 0f, getScreenX() );
+        registerAnimation.setDuration(ANIMATION_DURATION);
+        registerAnimation.setInterpolator(new LinearInterpolator());
+        registerAnimation.start();
+    }
+
+    private int getScreenX() {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        return displaymetrics.widthPixels;
     }
 
     @Override
@@ -197,54 +208,24 @@ public class LoginActivity extends Activity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
-            showProgress(true);
+            //mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
+            showSigningInProgress();
             mAuthTask = new UserLoginTask();
             mAuthTask.execute((Void) null);
         }
     }
 
-    /**
-     * Show the progress UI, hides the login form
-     * Or reverse. Depends on <em>show</em> value.
-     * @param show <em>true</em> if should display the status view and dims the forms
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(
-                    android.R.integer.config_shortAnimTime);
-
-            mLoginStatusView.setVisibility(View.VISIBLE);
-            mLoginStatusView.animate().setDuration(shortAnimTime)
-                    .alpha(show ? 1 : 0)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            mLoginStatusView.setVisibility(show ? View.VISIBLE
-                                    : View.GONE);
-                        }
-                    });
-
-            mLoginFormView.setVisibility(View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime)
-                    .alpha(show ? 0 : 1)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            mLoginFormView.setVisibility(show ? View.GONE
-                                    : View.VISIBLE);
-                        }
-                    });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+    private void showSigningInProgress() {
+        ProgressDialog mDialog = new ProgressDialog(this);
+        mDialog.setMessage(getString(R.string.login_progress_signing_in));
+        mDialog.setCancelable(true);
+        mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                //mAuthTask.cancel(true);
+            }
+        });
+        mDialog.show();
     }
 
     /**
@@ -278,7 +259,7 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
+            mDialog.dismiss();
 
             if (success) {
                 finish();
@@ -292,7 +273,6 @@ public class LoginActivity extends Activity {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false);
         }
     }
 }

@@ -30,36 +30,30 @@
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword" />
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <RelativeLayout
                 android:layout_marginTop="30dp"
-                android:gravity="right"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent">
 
                 <Button
-                    android:background="@drawable/login_form"
-                    android:layout_marginRight="50dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_sign_in"
+                    style="@style/LoginButtons"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/sign_in"
                     android:onClick="login" />
 
                 <Button
-                    android:background="@drawable/login_form"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_register"
-                    android:onClick="register" />
+                    android:layout_alignParentRight="true"
+                    style="@style/LoginButtons"
+                    android:text="@string/to_register"
+                    android:onClick="toRegister" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             style="@style/UserInfoFormContainer"
-            android:id="@+id/register_forms"
-            android:visibility="invisible">
+            android:id="@+id/register_forms">
 
             <EditText
                 android:id="@+id/register_email"
@@ -91,19 +85,15 @@
                 android:layout_width="match_parent">
 
                 <Button
-                    android:background="@drawable/login_form"
+                    style="@style/LoginButtons"
                     android:layout_alignParentLeft="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_sign_in"
-                    android:onClick="login" />
+                    android:text="@string/to_sign_in"
+                    android:onClick="toLogIn" />
 
                 <Button
-                    android:background="@drawable/login_form"
+                    style="@style/LoginButtons"
                     android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_register"
+                    android:text="@string/register"
                     android:onClick="register" />
 
             </RelativeLayout>
