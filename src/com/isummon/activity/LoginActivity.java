@@ -12,6 +12,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,8 +36,6 @@ import com.isummon.R;
  *
  */
 public class LoginActivity extends Activity {
-
-    private static final int TO_REGISTER = 999;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -77,13 +77,9 @@ public class LoginActivity extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == TO_REGISTER && resultCode == RESULT_OK) {
-
-        }
-        else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     /**

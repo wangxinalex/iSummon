@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 	private MyOverlay mOverlay = null;
 	MapView mMapView = null;
 	String TAG = "BMTest";
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class MainActivity extends Activity {
          *  设置地图是否响应点击事件  .
          */
 		mMapView.getController().enableClick(true);
-		
-	
+
+
 
 		// 设置启用内置的缩放控件
 		MapController mMapController = mMapView.getController();
@@ -49,24 +49,24 @@ public class MainActivity extends Activity {
 		// 用给定的经纬度构造一个GeoPoint，单位是微度 (度 * 1E6)
 		mMapController.setCenter(getDefaultGeoPoint());// 设置地图中心点
 		mMapController.setZoom(getDefaultZoomClass());// 设置地图zoom级别
-		
-		
+
+
 		initOverlay();
 		mMapView.regMapTouchListner(new MKMapTouchListener() {
-			
+
 			@Override
 			public void onMapLongClick(GeoPoint point) {
 				// TODO Auto-generated method stub
-				
+
 //				Toast.makeText(getApplicationContext(), point.toString(), Toast.LENGTH_LONG).show();
 				final int longitude = point.getLatitudeE6();
 				final int latitude = point.getLatitudeE6();
-				
+
 //				Dialog alertDialog =new AlertDialog.Builder(MainActivity.this).setTitle("hahha").create();
 //				alertDialog.show();
 				new AlertDialog.Builder(MainActivity.this).setTitle("添加新的活动")
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-					
+
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
@@ -78,41 +78,41 @@ public class MainActivity extends Activity {
 						//startActivityForResult;-----------------------------
 					}
 				}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-					
+
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
 						return;
 					}
 				}).create().show();
-				
+
 				mOverlay.addItem(new OverlayItem(point, "hha", "heh"));
 				mMapView.refresh();
 			}
-			
+
 			@Override
 			public void onMapDoubleClick(GeoPoint arg0) {
 				// TODO Auto-generated method stub
 			}
-			
+
 			@Override
 			public void onMapClick(GeoPoint arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
-	
+
 	public void initOverlay(){
-         mOverlay = new MyOverlay(getResources().getDrawable(R.drawable.icon_gcoding),mMapView);	
-         
+         mOverlay = new MyOverlay(getResources().getDrawable(R.drawable.icon_gcoding),mMapView);
+
          GeoPoint p1 = new GeoPoint ((int)(31.195*1E6),(int)(121.604*1E6));
          OverlayItem item1 = new OverlayItem(p1,"覆盖物1","");
          item1.setMarker(getResources().getDrawable(R.drawable.icon_gcoding));
          mOverlay.addItem(item1);
          mMapView.getOverlays().add(mOverlay);
-         
-         
+
+
 //         //popup overlay
 //         
 //         PopupClickListener popListener = new PopupClickListener() {
@@ -127,8 +127,8 @@ public class MainActivity extends Activity {
 //		pop = new PopupOverlay(mMapView, popListener);
 	}
 
-	
-	
+
+
 	@Override
 	protected void onDestroy() {
 		mMapView.destroy();
@@ -180,19 +180,19 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		
+
 		switch (item.getItemId()){
-			case R.id.view_all_act : 
+			case R.id.view_all_act :
 				Intent intent = new Intent();
 				intent.setClass(getApplicationContext(), ListActivity.class);
 				startActivity(intent);
 				break;
 			case R.id.exit_all:
-				android.os.Process.killProcess(android.os.Process.myPid());  
-			
+				android.os.Process.killProcess(android.os.Process.myPid());
+
 		}
-		
-	
+
+
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -203,27 +203,27 @@ public class MainActivity extends Activity {
 			super(defaultMarker, mapView);
 			// TODO Auto-generated constructor stub
 		}
-		
+
 //		public boolean onTap(GeoPoint pt , MapView mMapView){
 //			Toast.makeText(getApplicationContext(),"22"+  pt.toString(), Toast.LENGTH_LONG).show();
 //			return false;
 //			
 //		}
-		
+
 		protected boolean onTap(int index){
 			getItem(index);
-		
-			
+
+
 //			Toast.makeText(getApplicationContext(), "item index: " + index + " content: " + item.getTitle(), Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent();
 			intent.setClass(getApplicationContext(), ShowActivity.class);
 			intent.putExtra("index", index);
 			startActivity(intent);
-			
+
 			return false;
 		}
-		
-		
+
+
 
 	}
 
