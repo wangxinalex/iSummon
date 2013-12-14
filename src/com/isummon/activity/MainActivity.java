@@ -1,13 +1,19 @@
 package com.isummon.activity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 
 import com.baidu.mapapi.BMapManager;
@@ -57,34 +63,35 @@ public class MainActivity extends Activity {
 			@Override
 			public void onMapLongClick(GeoPoint point) {
 				// TODO Auto-generated method stub
-				
-//				Toast.makeText(getApplicationContext(), point.toString(), Toast.LENGTH_LONG).show();
-				final int longitude = point.getLatitudeE6();
-				final int latitude = point.getLatitudeE6();
-				
-//				Dialog alertDialog =new AlertDialog.Builder(MainActivity.this).setTitle("hahha").create();
-//				alertDialog.show();
-				new AlertDialog.Builder(MainActivity.this).setTitle("添加新的活动")
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						Intent intent = new Intent();
-						intent.setClass(getApplicationContext(), AddActivity.class);
-						intent.putExtra("longitude", longitude);
-						intent.putExtra("latitude", latitude);
-						MainActivity.this.startActivity(intent);
-						//startActivityForResult;-----------------------------
-					}
-				}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						return;
-					}
-				}).create().show();
+				showAddActFragment();
+
+////				Toast.makeText(getApplicationContext(), point.toString(), Toast.LENGTH_LONG).show();
+//				final int longitude = point.getLatitudeE6();
+//				final int latitude = point.getLatitudeE6();
+//
+////				Dialog alertDialog =new AlertDialog.Builder(MainActivity.this).setTitle("hahha").create();
+////				alertDialog.show();
+//				new AlertDialog.Builder(MainActivity.this).setTitle("添加新的活动")
+//				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						// TODO Auto-generated method stub
+//						Intent intent = new Intent();
+//						intent.setClass(getApplicationContext(), AddActivity.class);
+//						intent.putExtra("longitude", longitude);
+//						intent.putExtra("latitude", latitude);
+//						MainActivity.this.startActivity(intent);
+//						//startActivityForResult;-----------------------------
+//					}
+//				}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						// TODO Auto-generated method stub
+//						return;
+//					}
+//				}).create().show();
 				
 				mOverlay.addItem(new OverlayItem(point, "hha", "heh"));
 				mMapView.refresh();
@@ -102,6 +109,13 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+
+    private void showAddActFragment() {
+        new AddActPopupWindow().showAtLocation(
+                findViewById(R.id.bmapsView),
+                Gravity.TOP,
+                0, 0 );
+    }
 	
 	public void initOverlay(){
          mOverlay = new MyOverlay(getResources().getDrawable(R.drawable.icon_gcoding),mMapView);	
@@ -238,6 +252,26 @@ public class MainActivity extends Activity {
 		// zoom from 3 to 19,
 		return 19;
 	}
+
+    private class AddActPopupWindow extends PopupWindow {
+        private AddActPopupWindow() {
+            super(getLayoutInflater().inflate(R.layout.window_add_act, null),
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    true);
+            setBackgroundDrawable(getResources().getDrawable(R.drawable.logbg));
+            setFocusable(true);
+            setTouchable(true);
+            setOutsideTouchable(false);
+
+//            setOnDismissListener(new OnDismissListener() {
+//                @Override
+//                public void onDismiss() {
+//                    AddActPopupWindow.this.dismiss();
+//                }
+//            });
+        }
+    }
 
 }
 
