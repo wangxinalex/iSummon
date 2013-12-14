@@ -1,4 +1,4 @@
-package com.isummon.ui;
+package com.isummon.activity;
 
 import android.app.Activity;
 import android.os.Bundle;

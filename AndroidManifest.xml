@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="16" />
     <!-- 使用网络功能所需权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
@@ -29,22 +29,22 @@
   
 
     <application
-        android:name="com.isummon.ui.TestApplication"
+        android:name="com.isummon.activity.TestApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.isummon.ui.MainActivity"
+            android:name="com.isummon.activity.MainActivity"
             android:label="@string/app_name" >
         </activity>
        
         <activity
-            android:name="com.isummon.ui.AddActivity"
+            android:name="com.isummon.activity.AddActivity"
              android:label="@string/title_activity_add" >
         </activity>
         <activity
-            android:name="com.isummon.ui.LoginActivity"
+            android:name="com.isummon.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
@@ -54,14 +54,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.isummon.ui.ShowActivity"
+            android:name="com.isummon.activity.ShowActivity"
             android:label="@string/title_activity_show" >
         </activity>
         <activity
-            android:name="com.isummon.ui.ListActivity"
+            android:name="com.isummon.activity.ListActivity"
             android:label="@string/title_activity_list">
         </activity>
-        <activity android:name=".ui.RegisterActivity"
+        <activity android:name=".activity.RegisterActivity"
             android:label="注册"/>
     </application>
 

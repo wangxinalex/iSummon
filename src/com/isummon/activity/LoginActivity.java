@@ -1,7 +1,11 @@
-package com.isummon.ui;
+package com.isummon.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,16 +13,17 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
+import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.isummon.R;
+import com.isummon.ui.LoginRegisterForms;
+
+import java.sql.SQLOutput;
 
 
 /**
@@ -64,16 +69,15 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        ViewGroup loginLayout = (ViewGroup) getLayoutInflater().inflate( R.layout.login_forms,
-                (ViewGroup) findViewById(R.id.forms), true);
+//        getLayoutInflater().inflate( R.layout.login_forms,
+//                (ViewGroup) findViewById(R.id.forms), true);
 
         // Set up the login form.
-        mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-        mEmailView = (EditText) loginLayout.findViewById(R.id.login_email);
-        mEmailView.setText(mEmail);
+//        mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
+//        mEmailView = (EditText) findViewById(R.id.login_email);
+//        mEmailView.setText(mEmail);
 
-        mPasswordView = (EditText) loginLayout.findViewById(R.id.password);
+        mPasswordView = (EditText) findViewById(R.id.password);
 //        mPasswordView
 //                .setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //                    @Override
@@ -88,7 +92,7 @@ public class LoginActivity extends Activity {
 //                    }
 //                });
 
-        mLoginFormView = findViewById(R.id.forms);
+        //mLoginFormView = findViewById(R.id.forms);
     }
 
     @Override
@@ -113,12 +117,25 @@ public class LoginActivity extends Activity {
     }
 
     public void register(View v) {
-        //startActivityForResult(new Intent(this, RegisterActivity.class), TO_REGISTER);
-        LinearLayout formsGroup = (LinearLayout)findViewById(R.id.forms);
-        formsGroup.removeAllViews();
-        ViewGroup registerView = (ViewGroup) getLayoutInflater().inflate(R.layout.register_forms,
-                formsGroup, true);
-        formsGroup.invalidate();
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+
+        final View loginForms = findViewById(R.id.login_forms);
+        ValueAnimator loginAnimation = ObjectAnimator.ofFloat(loginForms,
+                "translationX", 0f, -displaymetrics.widthPixels );
+        loginAnimation.setDuration(100);
+        loginAnimation.setInterpolator(new LinearInterpolator());
+        loginAnimation.start();
+
+        View registerForms = findViewById(R.id.register_forms);
+        registerForms.setVisibility(View.VISIBLE);
+        registerForms.setTranslationX(displaymetrics.widthPixels);
+
+        ValueAnimator registerAnimation = ObjectAnimator.ofFloat(registerForms,
+                "translationX", displaymetrics.widthPixels, 0f );
+        registerAnimation.setDuration(100);
+        registerAnimation.setInterpolator(new LinearInterpolator());
+        registerAnimation.start();
     }
 
     @Override
