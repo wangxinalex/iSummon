@@ -17,6 +17,7 @@
     <EditText
         android:id="@+id/actPlace"
         style="@style/AddActForm2"
+        android:editable="false"
         android:hint="@string/act_place_prompt"/>
 
     <EditText
