@@ -63,6 +63,7 @@ public class NetHelper {
      * @return 返回值为已登录用户的ID，验证失败返回-1
      */
     public static int login(String username, String passwd) {
+        System.out.println("hahahahahahaha");
         return 0;
     }
 

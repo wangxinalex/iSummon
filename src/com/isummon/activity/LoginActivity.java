@@ -17,6 +17,8 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -26,7 +28,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.isummon.R;
-import com.isummon.logic.UserLogInTask;
+import com.isummon.net.NetHelper;
 
 
 /**
@@ -52,11 +54,6 @@ public class LoginActivity extends Activity {
 
     public static final int ANIMATION_DURATION = 100;
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLogInTask mAuthTask = null;
-
     // Values for email and password at the time of the login attempt.
     private String mEmail;
     private String mPassword;
@@ -65,6 +62,8 @@ public class LoginActivity extends Activity {
     private EditText mEmailView;
     private EditText mPasswordView;
     private ProgressDialog mDialog;
+
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +75,8 @@ public class LoginActivity extends Activity {
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.login_email);
         mPasswordView = (EditText) findViewById(R.id.password);
+
+        handler = new Handler();
     }
 
     @Override
@@ -89,11 +90,9 @@ public class LoginActivity extends Activity {
      */
     public void login(View v) {
         //showSigningInProgress();
-        //attemptLogin();
+        attemptLogin();
         // now, skip the authenticating logic
-        Intent intent = new Intent();
-        intent.setClass(this, MainActivity.class);
-        startActivity(intent);
+
     }
 
     /**
@@ -160,9 +159,6 @@ public class LoginActivity extends Activity {
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -208,19 +204,38 @@ public class LoginActivity extends Activity {
             // perform the user login attempt.
             //mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
             showSigningInProgress();
-            mAuthTask = new UserLogInTask();
-            //mAuthTask.execute(callback);
+
+            new Thread() {
+                @Override
+                public void run() {
+                    NetHelper.login("hello","world!");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mDialog.dismiss();
+                            Intent intent = new Intent();
+                            intent.setClass(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }.start();
         }
     }
 
     private void showSigningInProgress() {
-        ProgressDialog mDialog = new ProgressDialog(this);
+        mDialog = new ProgressDialog(this);
         mDialog.setMessage(getString(R.string.login_progress_signing_in));
         mDialog.setCancelable(true);
         mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                //mAuthTask.cancel(true);
+
             }
         });
         mDialog.show();
