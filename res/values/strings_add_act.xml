@@ -26,4 +26,5 @@
 
     <!-- strings in SearchAddressActivity -->
     <string name="search_addr_title">搜索地点</string>
+    <string name="search_not_available">目前暂不支持搜索地点</string>
 </resources>
