@@ -1,245 +1,97 @@
 package com.isummon.activity;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.view.Gravity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-
 
 import com.baidu.mapapi.BMapManager;
-import com.baidu.mapapi.map.ItemizedOverlay;
-import com.baidu.mapapi.map.MKMapTouchListener;
-import com.baidu.mapapi.map.MapController;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.OverlayItem;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.isummon.R;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import com.isummon.view.ISummonMapView;
 
 
 public class MainActivity extends Activity {
-	BMapManager mBMapMan = null;
-	private MyOverlay mOverlay = null;
-	MapView mMapView = null;
-	String TAG = "BMTest";
+    private BMapManager mBMapMan;
+    private ISummonMapView mMapView;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+        mBMapMan = ((TestApplication) this.getApplication()).getBMapManager();
+        setContentView(R.layout.activity_main);
 
-		mBMapMan = ((TestApplication) this.getApplication()).getBMapManager();
-		setContentView(R.layout.activity_main);
-
-		mMapView = (MapView) findViewById(R.id.bmapsView);
-		mMapView.setBuiltInZoomControls(true);
-		 /**
-         *  设置地图是否响应点击事件  .
-         */
-		mMapView.getController().enableClick(true);
-
-
-
-		// 设置启用内置的缩放控件
-		MapController mMapController = mMapView.getController();
-		// 得到mMapView的控制权,可以用它控制和驱动平移和缩放
-		// 用给定的经纬度构造一个GeoPoint，单位是微度 (度 * 1E6)
-		mMapController.setCenter(getDefaultGeoPoint());// 设置地图中心点
-		mMapController.setZoom(getDefaultZoomClass());// 设置地图zoom级别
-
-
-		initOverlay();
-		mMapView.regMapTouchListner(new MKMapTouchListener() {
-
-			@Override
-			public void onMapLongClick(GeoPoint point) {
-
-				final int longitude = point.getLatitudeE6();
-				final int latitude = point.getLatitudeE6();
-
-				mOverlay.addItem(new OverlayItem(point, "hha", "heh"));
-				mMapView.refresh();
-
-                // I don't know why, but MapView completes invalidating not before the AddActivity starts
-                // So I cannot see the newly-added balloon through the AddActivity background
-                // this is the dummy solution: delay starting activity
-                Timer timer = new Timer();
-                timer.schedule( new TimerTask() {
-                    @Override
-                    public void run() {
-                        showAddActActivity(longitude, latitude);
-                    }
-                }, 500);
-
-			}
-
-			@Override
-			public void onMapDoubleClick(GeoPoint arg0) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void onMapClick(GeoPoint arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-	}
-
-    private void showAddActActivity(int longitude, int latitude) {
-        Intent intent = new Intent(this, AddActivity.class);
-        intent.putExtra("longitude", longitude);
-        intent.putExtra("latitude", latitude);
-        startActivity(intent);
+        mMapView = (ISummonMapView) findViewById(R.id.bmapsView);
     }
 
-	public void initOverlay(){
-         mOverlay = new MyOverlay(getResources().getDrawable(R.drawable.icon_gcoding),mMapView);
+    @Override
+    protected void onDestroy() {
+        mMapView.destroy();
+        if (mBMapMan != null) {
+            mBMapMan.destroy();
+            mBMapMan = null;
+        }
+        super.onDestroy();
+    }
 
-         GeoPoint p1 = new GeoPoint ((int)(31.195*1E6),(int)(121.604*1E6));
-         OverlayItem item1 = new OverlayItem(p1,"覆盖物1","");
-         item1.setMarker(getResources().getDrawable(R.drawable.icon_gcoding));
-         mOverlay.addItem(item1);
-         mMapView.getOverlays().add(mOverlay);
+    @Override
+    protected void onPause() {
+        mMapView.onPause();
+        if (mBMapMan != null) {
+            mBMapMan.stop();
+        }
+        super.onPause();
+    }
 
+    @Override
+    protected void onResume() {
+        mMapView.onResume();
+        if (mBMapMan != null) {
+            mBMapMan.start();
+        }
+        super.onResume();
+    }
 
-//         //popup overlay
-//         
-//         PopupClickListener popListener = new PopupClickListener() {
-//			
-//			@Override
-//			public void onClickedPopup(int arg0) {
-//				// TODO Auto-generated method stub
-//				Toast.makeText(getApplicationContext(), "tost!", Toast.LENGTH_SHORT).show();
-//			}
-//		};
-//		
-//		pop = new PopupOverlay(mMapView, popListener);
-	}
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mMapView.onSaveInstanceState(outState);
 
+    }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mMapView.onRestoreInstanceState(savedInstanceState);
+    }
 
-	@Override
-	protected void onDestroy() {
-		mMapView.destroy();
-		if (mBMapMan != null) {
-			mBMapMan.destroy();
-			mBMapMan = null;
-		}
-		super.onDestroy();
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-	@Override
-	protected void onPause() {
-		mMapView.onPause();
-		if (mBMapMan != null) {
-			mBMapMan.stop();
-		}
-		super.onPause();
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
 
-	@Override
-	protected void onResume() {
-		mMapView.onResume();
-		if (mBMapMan != null) {
-			mBMapMan.start();
-		}
-		super.onResume();
-	}
+        switch (item.getItemId()) {
+            case R.id.menu_all_act:
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), ListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.menu_exit:
+                android.os.Process.killProcess(android.os.Process.myPid());
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		mMapView.onSaveInstanceState(outState);
-
-	}
-
-	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		super.onRestoreInstanceState(savedInstanceState);
-		mMapView.onRestoreInstanceState(savedInstanceState);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-
-		switch (item.getItemId()){
-			case R.id.view_all_act :
-				Intent intent = new Intent();
-				intent.setClass(getApplicationContext(), ListActivity.class);
-				startActivity(intent);
-				break;
-			case R.id.exit_all:
-				android.os.Process.killProcess(android.os.Process.myPid());
-
-		}
+        }
 
 
-		return super.onOptionsItemSelected(item);
-	}
+        return super.onOptionsItemSelected(item);
+    }
 
-	/************************* Inner class, itemized layout *********/
-	public class MyOverlay extends ItemizedOverlay<OverlayItem> {
-
-		public MyOverlay(Drawable defaultMarker, MapView mapView) {
-			super(defaultMarker, mapView);
-			// TODO Auto-generated constructor stub
-		}
-
-//		public boolean onTap(GeoPoint pt , MapView mMapView){
-//			Toast.makeText(getApplicationContext(),"22"+  pt.toString(), Toast.LENGTH_LONG).show();
-//			return false;
-//			
-//		}
-
-		protected boolean onTap(int index){
-			getItem(index);
-
-
-//			Toast.makeText(getApplicationContext(), "item index: " + index + " content: " + item.getTitle(), Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent();
-			intent.setClass(getApplicationContext(), ShowActivity.class);
-			intent.putExtra("index", index);
-			startActivity(intent);
-
-			return false;
-		}
-
-
-
-	}
-
-	/*********************** Private method ************************/
-	private GeoPoint getDefaultGeoPoint() {
-		GeoPoint point = new GeoPoint((int) (31.195719 * 1E6),
-				(int) (121.604423 * 1E6));
-		return point;
-	}
-
-	private int getDefaultZoomClass() {
-		// zoom from 3 to 19,
-		return 19;
-	}
 
 }
 
