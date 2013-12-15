@@ -20,6 +20,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <!-- LogIn Activity Style -->
     <style name="UserInfoForm">
         <item name="android:layout_width">400dp</item>
         <item name="android:layout_height">60dp</item>
@@ -44,6 +45,23 @@
     <style name="LoginButtons">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/login_form</item>
+    </style>
+
+    <!-- Add act activity style -->
+    <style name="AddActForm">
+        <item name="android:layout_width">400dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/login_form</item>
+    </style>
+
+    <style name="AddActForm2" parent="AddActForm">
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="AddActButtons">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">60dp</item>
         <item name="android:background">@drawable/login_form</item>
     </style>
 

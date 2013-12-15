@@ -25,6 +25,9 @@ import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.isummon.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MainActivity extends Activity {
 	BMapManager mBMapMan = null;
@@ -62,39 +65,24 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onMapLongClick(GeoPoint point) {
-				// TODO Auto-generated method stub
-				//showAddActFragment();
 
-////				Toast.makeText(getApplicationContext(), point.toString(), Toast.LENGTH_LONG).show();
-//				final int longitude = point.getLatitudeE6();
-//				final int latitude = point.getLatitudeE6();
-//
-////				Dialog alertDialog =new AlertDialog.Builder(MainActivity.this).setTitle("hahha").create();
-////				alertDialog.show();
-//				new AlertDialog.Builder(MainActivity.this).setTitle("添加新的活动")
-//				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						// TODO Auto-generated method stub
-//						Intent intent = new Intent();
-//						intent.setClass(getApplicationContext(), AddActivity.class);
-//						intent.putExtra("longitude", longitude);
-//						intent.putExtra("latitude", latitude);
-//						MainActivity.this.startActivity(intent);
-//						//startActivityForResult;-----------------------------
-//					}
-//				}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						// TODO Auto-generated method stub
-//						return;
-//					}
-//				}).create().show();
+				final int longitude = point.getLatitudeE6();
+				final int latitude = point.getLatitudeE6();
 
 				mOverlay.addItem(new OverlayItem(point, "hha", "heh"));
 				mMapView.refresh();
+
+                // I don't know why, but MapView completes invalidating not before the AddActivity starts
+                // So I cannot see the newly-added balloon through the AddActivity background
+                // this is the dummy solution: delay starting activity
+                Timer timer = new Timer();
+                timer.schedule( new TimerTask() {
+                    @Override
+                    public void run() {
+                        showAddActActivity(longitude, latitude);
+                    }
+                }, 500);
+
 			}
 
 			@Override
@@ -110,16 +98,11 @@ public class MainActivity extends Activity {
 		});
 	}
 
-    private void showAddActActivity() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(R.layout.window_add_act);
-    }
-
-    private void showAddActFragment() {
-        new AddActPopupWindow().showAtLocation(
-                findViewById(R.id.bmapsView),
-                Gravity.TOP,
-                0, 0);
+    private void showAddActActivity(int longitude, int latitude) {
+        Intent intent = new Intent(this, AddActivity.class);
+        intent.putExtra("longitude", longitude);
+        intent.putExtra("latitude", latitude);
+        startActivity(intent);
     }
 
 	public void initOverlay(){
@@ -257,26 +240,6 @@ public class MainActivity extends Activity {
 		// zoom from 3 to 19,
 		return 19;
 	}
-
-    private class AddActPopupWindow extends PopupWindow {
-        private AddActPopupWindow() {
-            super(getLayoutInflater().inflate(R.layout.window_add_act, null),
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    true);
-            setBackgroundDrawable(getResources().getDrawable(R.drawable.logbg));
-            setFocusable(true);
-            setTouchable(true);
-            setOutsideTouchable(false);
-
-//            setOnDismissListener(new OnDismissListener() {
-//                @Override
-//                public void onDismiss() {
-//                    AddActPopupWindow.this.dismiss();
-//                }
-//            });
-        }
-    }
 
 }
 

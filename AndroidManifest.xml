@@ -2,69 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.isummon"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="16" />
+        android:targetSdkVersion="19" />
     <!-- 使用网络功能所需权限 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
-    
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <!-- SDK离线地图和cache功能需要读写外部存储器 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!-- 获取设置信息和详情页直接拨打电话需要以下权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
-    </uses-permission>
-  
-  
-
-    <application
-        android:name="com.isummon.activity.TestApplication"
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.isummon.activity.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-       
-        <activity
-            android:name="com.isummon.activity.AddActivity"
-             android:label="@string/title_activity_add" >
-        </activity>
-        <activity
-            android:name="com.isummon.activity.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
-
-        </activity>
-        <activity
-            android:name="com.isummon.activity.ShowActivity"
-            android:label="@string/title_activity_show" >
-        </activity>
-        <activity
-            android:name="com.isummon.activity.ListActivity"
-            android:label="@string/title_activity_list">
-        </activity>
-        <activity android:name=".activity.RegisterActivity"
-            android:label="注册"/>
-    </application>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <supports-screens
         android:anyDensity="true"
@@ -72,5 +25,42 @@
         android:normalScreens="true"
         android:resizeable="true"
         android:smallScreens="true" />
+
+    <application
+        android:name="com.isummon.activity.TestApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.isummon.activity.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:theme="@android:style/Theme.Dialog"
+            android:name="com.isummon.activity.AddActivity"
+            android:label="@string/title_activity_add"/>
+        <activity
+            android:name="com.isummon.activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible">
+
+        </activity>
+        <activity
+            android:name="com.isummon.activity.ShowActivity"
+            android:label="@string/title_activity_show"/>
+        <activity
+            android:name="com.isummon.activity.ListActivity"
+            android:label="@string/title_activity_list"/>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:label="注册" />
+    </application>
 
 </manifest>

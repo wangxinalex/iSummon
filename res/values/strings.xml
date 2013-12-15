@@ -3,9 +3,8 @@
 
     <string name="app_name">BMapTest</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_add">AddActivity</string>
-    <string name="title_activity_show">ShowActivity</string>
-    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_add">创建活动</string>
+    <string name="title_activity_show">活动信息</string>
+    <string name="title_activity_list">活动列表</string>
 
 </resources>
