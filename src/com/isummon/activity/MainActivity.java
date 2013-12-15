@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onMapLongClick(GeoPoint point) {
 				// TODO Auto-generated method stub
-				showAddActFragment();
+				//showAddActFragment();
 
 ////				Toast.makeText(getApplicationContext(), point.toString(), Toast.LENGTH_LONG).show();
 //				final int longitude = point.getLatitudeE6();
@@ -110,11 +110,16 @@ public class MainActivity extends Activity {
 		});
 	}
 
+    private void showAddActActivity() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(R.layout.window_add_act);
+    }
+
     private void showAddActFragment() {
         new AddActPopupWindow().showAtLocation(
                 findViewById(R.id.bmapsView),
                 Gravity.TOP,
-                0, 0 );
+                0, 0);
     }
 
 	public void initOverlay(){

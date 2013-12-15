@@ -51,14 +51,7 @@
         <activity
             android:name="com.isummon.activity.LoginActivity"
             android:label="@string/title_activity_login"
-<<<<<<< HEAD
-            android:windowSoftInputMode="adjustResize|stateVisible"
-            android:configChanges="keyboardHidden|orientation">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-=======
             android:windowSoftInputMode="adjustResize|stateVisible" >
->>>>>>> 350ff323c130643c0698dd5c9bb24e4be047cd61
 
         </activity>
         <activity
