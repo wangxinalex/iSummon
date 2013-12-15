@@ -45,7 +45,7 @@ public class AddActivity extends Activity {
         EditText et = (EditText) findViewById(R.id.actPlace);
         et.setHint(R.string.act_place_prompt);
         // if longitude is greater than -181, it must be a valid number
-        if(longitude < -181) {
+        if(longitude > -181) {
             et.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
