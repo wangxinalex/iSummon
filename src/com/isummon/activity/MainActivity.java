@@ -3,8 +3,13 @@ package com.isummon.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.baidu.mapapi.BMapManager;
 import com.isummon.R;
@@ -14,6 +19,9 @@ import com.isummon.view.ISummonMapView;
 public class MainActivity extends Activity {
     private BMapManager mBMapMan;
     private ISummonMapView mMapView;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private LinearLayout mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +29,34 @@ public class MainActivity extends Activity {
 
         mBMapMan = ((TestApplication) this.getApplication()).getBMapManager();
         setContentView(R.layout.activity_main);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(R.string.app_name);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(R.string.fake_nickname);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        // set a custom shadow that overlays the main content when the drawer opens
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
+        mDrawer = (LinearLayout) findViewById(R.id.main_drawer);
 
         mMapView = (ISummonMapView) findViewById(R.id.bmapsView);
     }
@@ -54,6 +90,16 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawer);
+        for (int i = 0; i < menu.size(); i++) {
+            menu.getItem(i).setVisible(!drawerOpen);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mMapView.onSaveInstanceState(outState);
@@ -77,6 +123,10 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub
 
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.menu_all_act:
                 Intent intent = new Intent();
@@ -94,42 +144,3 @@ public class MainActivity extends Activity {
 
 
 }
-
-//class MyAlertDialog extends AlertDialog{
-//	private GeoPoint mGeopoint = null;
-//	private Context context = null;
-//	public MyAlertDialog(Context context, GeoPoint geo) {
-//		super(context);
-//		this.mGeopoint = geo;
-//		this.context = context;
-//		// TODO Auto-generated constructor stub
-//		
-//		
-//	}
-//	
-//	public AlertDialog getMyDialog(){
-//		return new AlertDialog.Builder(context).setTitle("添加新的活动")
-//				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//					
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						// TODO Auto-generated method stub
-//						Intent intent = new Intent();
-//						intent.setClass(getContext(), AddActivity.class);
-//						intent.putExtra("long", mGeopoint.getLongitudeE6());
-//						intent.putExtra("lati", mGeopoint.getLatitudeE6());
-//						getOwnerActivity().startActivity(intent);
-//					}
-//				}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//					
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						// TODO Auto-generated method stub
-//						return;
-//					}
-//				}).create();
-//	}
-//	
-//
-//	
-//}

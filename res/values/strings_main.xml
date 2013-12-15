@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drawer_open">展开侧栏</string>
+    <string name="drawer_close">收起侧栏</string>
+
+    <string name="head_pic_desp">我的头像</string>
+    <string name="fake_nickname">horzwxy</string>
+</resources>
