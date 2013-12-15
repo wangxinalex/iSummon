@@ -13,6 +13,7 @@ import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.isummon.R;
 import com.isummon.activity.AddActivity;
+import com.isummon.activity.PickMapAddressActivity;
 import com.isummon.activity.ShowActivity;
 
 import java.util.List;
@@ -83,6 +84,11 @@ public class ISummonMapView extends MapView {
 
             }
         });
+    }
+
+    public void setAddressPickedListener(PickMapAddressActivity.AddressPickedListener listener) {
+        // register the callback
+        // call listener.onAddressPicked when user has done something on the view(single tap or long tap or some kind else)
     }
 
     public void setLongTouchAvailable(boolean isAvailable) {

@@ -61,6 +61,12 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:label="注册" />
+
+        <activity android:name=".activity.PickMapAddressActivity"
+            android:label="@string/pick_addr_from_map_title"/>
+
+        <activity android:name=".activity.SearchAddressActivity"
+            android:label="@string/search_addr_title"/>
     </application>
 
 </manifest>
