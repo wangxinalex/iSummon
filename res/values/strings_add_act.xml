@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="act_name_prompt">活动名称</string>
+    <string name="act_place_prompt">活动地点</string>
+    <string name="act_time_prompt">活动时间</string>
+    <string name="act_content_prompt">活动内容</string>
+    <string name="act_tag_prompt">标签</string>
+    <string name="act_participants_max_prompt">人数限制</string>
+
+    <string name="add_act">创建活动</string>
+    <string name="cancel_add">取消</string>
+</resources>
