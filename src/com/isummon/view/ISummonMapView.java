@@ -3,7 +3,10 @@ package com.isummon.view;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.Toast;
 
 import com.baidu.mapapi.map.ItemizedOverlay;
 import com.baidu.mapapi.map.MKMapTouchListener;
@@ -19,6 +22,7 @@ import com.isummon.model.SimpleHDActivity;
 import com.isummon.net.NetHelper;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,8 +32,10 @@ import java.util.TimerTask;
  */
 public class ISummonMapView extends MapView {
 
-
+    private Handler handler;
     private MyOverlay mOverlay = null;
+    private PointOverlay pointOverlay;
+    private PickMapAddressActivity.AddressPickedListener listener;
 
     public ISummonMapView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -43,10 +49,12 @@ public class ISummonMapView extends MapView {
         mMapController.setCenter(getDefaultGeoPoint());// 设置地图中心点
         mMapController.setZoom(getDefaultZoomClass());// 设置地图zoom级别
 
-
-        //initialize mOverlay with default maker;
+        handler = new Handler();
+        //initialize mOverlay with default marker;
         mOverlay = new MyOverlay(getContext().getResources().getDrawable(R.drawable.icon_gcoding), this);
         getOverlays().add(mOverlay);
+
+        pointOverlay = new PointOverlay(getContext().getResources().getDrawable(R.drawable.icon_gcoding), this);
 
         //register mapView touch listener.
         regMapTouchListner(new MKMapTouchListener() {
@@ -57,7 +65,7 @@ public class ISummonMapView extends MapView {
                 final int longitude = point.getLatitudeE6();
                 final int latitude = point.getLatitudeE6();
 
-                mOverlay.addItem(new OverlayItem(point, "hha", "heh"));
+                mOverlay.addItem(new OverlayItem(point, "", ""));
                 refresh();
 
                 // I don't know why, but MapView completes invalidating not before the AddActivity starts
@@ -82,7 +90,6 @@ public class ISummonMapView extends MapView {
             @Override
             public void onMapClick(GeoPoint arg0) {
                 // TODO Auto-generated method stub
-
             }
         });
     }
@@ -90,10 +97,19 @@ public class ISummonMapView extends MapView {
     public void setAddressPickedListener(PickMapAddressActivity.AddressPickedListener listener) {
         // register the callback
         // call listener.onAddressPicked when user has done something on the view(single tap or long tap or some kind else)
+        this.listener = listener;
     }
 
     public void setLongTouchAvailable(boolean isAvailable) {
-
+        if(!isAvailable){
+            getOverlays().add(pointOverlay);
+            refresh();
+        }else{
+            if(getOverlays().contains(pointOverlay)){
+                getOverlays().remove(pointOverlay);
+                refresh();
+            }
+        }
     }
 
     public void showHd(List<Integer> hdIdList) {
@@ -112,32 +128,29 @@ public class ISummonMapView extends MapView {
         new Thread() {
             @Override
             public void run() {
-                ArrayList<SimpleHDActivity>  simHdList = NetHelper.getCurrentSimpleHDActivities();
-
-
+                final ArrayList<OverlayItem> itemList = getItemFromHdActivity(NetHelper.getCurrentSimpleHDActivities());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mOverlay.addItem(itemList);
+                        refresh();
+                    }
+                });
             }
-
         }.start();
     }
 
+
     /*********************** Private method ************************/
 
-    private void initOverlay() {
-
-
-//        GeoPoint p1 = new GeoPoint((int) (31.195 * 1E6), (int) (121.604 * 1E6));
-//        OverlayItem item1 = new OverlayItem(p1, "覆盖物1", "");
-//        item1.setMarker(getResources().getDrawable(R.drawable.icon_gcoding));
-//        mOverlay.addItem(item1);
-
-
-
-
-
-
-
+    private ArrayList<OverlayItem> getItemFromHdActivity(ArrayList<SimpleHDActivity> hdList){
+        ArrayList<OverlayItem> itemList = new ArrayList<OverlayItem>();
+        for(SimpleHDActivity hd: hdList){
+            GeoPoint point = new GeoPoint((int) hd.getHdLatitude(), (int) hd.getHdLongitude());
+            itemList.add(new OverlayItem(point, hd.getHdName(), ""));
+        }
+        return itemList;
     }
-
 
 
     private GeoPoint getDefaultGeoPoint() {
@@ -169,12 +182,22 @@ public class ISummonMapView extends MapView {
             intent.setClass(getContext().getApplicationContext(), ShowActivity.class);
             intent.putExtra("index", index);
             getContext().startActivity(intent);
-
             return false;
         }
+    }
 
+    private class PointOverlay extends  ItemizedOverlay<OverlayItem>{
+        private PointOverlay(Drawable drawable, MapView mapView) {
+            super(drawable, mapView);
+        }
 
-
+        @Override
+        public boolean onTap(GeoPoint geoPoint, MapView mapView) {
+//            Toast.makeText(getContext(), "hello!" + geoPoint.getLatitudeE6() + " " + geoPoint.getLongitudeE6(), Toast.LENGTH_SHORT).show();
+            //Now I get the geo point, so I can give it back
+            listener.onAddressPicked(geoPoint.getLongitudeE6(), geoPoint.getLongitudeE6());
+            return true;
+        }
     }
 
 }

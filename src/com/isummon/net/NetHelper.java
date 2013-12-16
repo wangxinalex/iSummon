@@ -86,6 +86,19 @@ public class NetHelper {
      * @return
      */
     public static ArrayList<SimpleHDActivity> getCurrentSimpleHDActivities() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ArrayList<SimpleHDActivity> retList = new ArrayList<SimpleHDActivity>();
+        retList.add(new SimpleHDActivity("Test SimpleHD1", 31.195 * 1E6, 121.604 * 1E6));
+        retList.add(new SimpleHDActivity("Test SimpleHD2", 31.196 * 1E6, 121.604 * 1E6));
+        retList.add(new SimpleHDActivity("Test SimpleHD3", 31.197 * 1E6, 121.604 * 1E6));
+        return retList;
+    }
+
+    public static ArrayList<SimpleHDActivity> getSimpleHdByIdList(ArrayList<Integer> idList){
         return null;
     }
 
@@ -103,6 +116,8 @@ public class NetHelper {
     public static HDActivity getHDActivityById(int hdId) {
         return null;
     }
+
+
 
     /**
      * 增

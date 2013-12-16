@@ -20,6 +20,11 @@ public class SimpleHDActivity {
     private HDType hdType;
     private HDStatus hdStatus;
 
+    public SimpleHDActivity(String hdName, double hdLatitude, double hdLongitude){
+        this.hdName = hdName;
+        this.hdLatitude = hdLatitude;
+        this.hdLongitude = hdLongitude;
+    }
     public SimpleHDActivity(int hdId, String hdName, int hdOrigin, double hdLongitude, double hdLatitude, HDType hdType, HDStatus hdStatus) {
         this.hdId = hdId;
         this.hdName = hdName;
