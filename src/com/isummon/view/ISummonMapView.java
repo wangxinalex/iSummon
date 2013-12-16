@@ -15,7 +15,10 @@ import com.isummon.R;
 import com.isummon.activity.AddActivity;
 import com.isummon.activity.PickMapAddressActivity;
 import com.isummon.activity.ShowActivity;
+import com.isummon.model.SimpleHDActivity;
+import com.isummon.net.NetHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,13 +33,8 @@ public class ISummonMapView extends MapView {
 
     public ISummonMapView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-
         setBuiltInZoomControls(true);
-        /**
-         *  设置地图是否响应点击事件  .
-         */
         getController().enableClick(true);
-
 
         // 设置启用内置的缩放控件
         MapController mMapController = getController();
@@ -46,8 +44,11 @@ public class ISummonMapView extends MapView {
         mMapController.setZoom(getDefaultZoomClass());// 设置地图zoom级别
 
 
-        initOverlay();
-        //mMapView.reg
+        //initialize mOverlay with default maker;
+        mOverlay = new MyOverlay(getContext().getResources().getDrawable(R.drawable.icon_gcoding), this);
+        getOverlays().add(mOverlay);
+
+        //register mapView touch listener.
         regMapTouchListner(new MKMapTouchListener() {
 
             @Override
@@ -106,29 +107,38 @@ public class ISummonMapView extends MapView {
         getContext().startActivity(intent);
     }
 
-    private void initOverlay() {
-        mOverlay = new MyOverlay(getContext().getResources().getDrawable(R.drawable.icon_gcoding), this);
 
-        GeoPoint p1 = new GeoPoint((int) (31.195 * 1E6), (int) (121.604 * 1E6));
-        OverlayItem item1 = new OverlayItem(p1, "覆盖物1", "");
-        item1.setMarker(getResources().getDrawable(R.drawable.icon_gcoding));
-        mOverlay.addItem(item1);
-        getOverlays().add(mOverlay);
+    public void showAllCurrentActivities(){
+        new Thread() {
+            @Override
+            public void run() {
+                ArrayList<SimpleHDActivity>  simHdList = NetHelper.getCurrentSimpleHDActivities();
 
 
-//         //popup overlay
-//
-//         PopupClickListener popListener = new PopupClickListener() {
-//
-//			@Override
-//			public void onClickedPopup(int arg0) {
-//				// TODO Auto-generated method stub
-//				Toast.makeText(getApplicationContext(), "tost!", Toast.LENGTH_SHORT).show();
-//			}
-//		};
-//
-//		pop = new PopupOverlay(mMapView, popListener);
+            }
+
+        }.start();
     }
+
+    /*********************** Private method ************************/
+
+    private void initOverlay() {
+
+
+//        GeoPoint p1 = new GeoPoint((int) (31.195 * 1E6), (int) (121.604 * 1E6));
+//        OverlayItem item1 = new OverlayItem(p1, "覆盖物1", "");
+//        item1.setMarker(getResources().getDrawable(R.drawable.icon_gcoding));
+//        mOverlay.addItem(item1);
+
+
+
+
+
+
+
+    }
+
+
 
     private GeoPoint getDefaultGeoPoint() {
         GeoPoint point = new GeoPoint((int) (31.195719 * 1E6),
@@ -152,16 +162,8 @@ public class ISummonMapView extends MapView {
             // TODO Auto-generated constructor stub
         }
 
-//		public boolean onTap(GeoPoint pt , MapView mMapView){
-//			Toast.makeText(getApplicationContext(),"22"+  pt.toString(), Toast.LENGTH_LONG).show();
-//			return false;
-//
-//		}
-
         protected boolean onTap(int index) {
             getItem(index);
-
-
 //			Toast.makeText(getApplicationContext(), "item index: " + index + " content: " + item.getTitle(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
             intent.setClass(getContext().getApplicationContext(), ShowActivity.class);
@@ -172,7 +174,7 @@ public class ISummonMapView extends MapView {
         }
 
 
+
     }
 
-    /*********************** Private method ************************/
 }
