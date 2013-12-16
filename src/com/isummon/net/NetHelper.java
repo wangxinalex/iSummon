@@ -63,8 +63,27 @@ public class NetHelper {
      * @return 返回值为已登录用户的ID，验证失败返回-1
      */
     public static int login(String username, String passwd) {
-        System.out.println("hahahahahahaha");
-        return 0;
+        String methodName = "login";
+        SoapObject request = new SoapObject(namespace, methodName);
+        request.addProperty("username", username);
+        request.addProperty("passwd", passwd);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.bodyOut = request;
+        HttpTransportSE ht = new HttpTransportSE(serviceUrl);
+        try {
+            // 第5步：调用WebService
+            ht.call(null, envelope);
+            if (envelope.getResponse() != null) {
+                SoapObject soapObject = (SoapObject) envelope.getResponse();
+                return Integer.parseInt(soapObject.getPropertyAsString(0));
+            } else {
+                return -1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     /**
@@ -76,6 +95,27 @@ public class NetHelper {
      * @return 成功or失败
      */
     public static boolean register(String username, String nickname, String passwd) {
+        String methodName = "register";
+        SoapObject request = new SoapObject(namespace, methodName);
+        request.addProperty("username", username);
+        request.addProperty("nickname", nickname);
+        request.addProperty("passwd", passwd);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.bodyOut = request;
+        HttpTransportSE ht = new HttpTransportSE(serviceUrl);
+        try {
+            // 第5步：调用WebService
+            ht.call(null, envelope);
+            if (envelope.getResponse() != null) {
+                SoapObject soapObject = (SoapObject) envelope.getResponse();
+                return Boolean.parseBoolean(soapObject.getPropertyAsString(0));
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
