@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -21,6 +20,10 @@ public class AddActivity extends Activity {
     static final String LONGITUDE = "longitude";
     static final String LATITUDE = "latitude";
     static final int GET_ADDRESS = 876;
+
+    private final static double DEFAULT_LATITUDE = 120;
+    private final static double DEFAULT_LONGITUDE = 35;
+    private final static String DEFAULT_ADDR_NAME = "第二教学楼";
 
     private HDActivity result;
 
@@ -68,6 +71,9 @@ public class AddActivity extends Activity {
         if(requestCode == GET_ADDRESS) {
             if(resultCode == RESULT_OK) {
                 ((EditText)findViewById(R.id.actPlace)).setText(data.getStringExtra(ADDRESS_NAME));
+                result.setHdAddress(data.getStringExtra(ADDRESS_NAME));
+                result.setLatitude(data.getDoubleExtra(LATITUDE, DEFAULT_LATITUDE));
+                result.setLongitude(data.getDoubleExtra(LONGITUDE, DEFAULT_LONGITUDE));
             }
             else {
                 // on error
@@ -127,9 +133,15 @@ public class AddActivity extends Activity {
     }
 
     private void onChooseMap() {
-        startActivityForResult(
-                new Intent(this, PickMapAddressActivity.class),
-                GET_ADDRESS);
+        // fake return
+        ((EditText)findViewById(R.id.actPlace)).setText(DEFAULT_ADDR_NAME);
+        result.setHdAddress(DEFAULT_ADDR_NAME);
+        result.setLatitude(DEFAULT_LATITUDE);
+        result.setLongitude(DEFAULT_LONGITUDE);
+
+//        startActivityForResult(
+//                new Intent(this, PickMapAddressActivity.class),
+//                GET_ADDRESS);
     }
 
     private void onChooseSearch() {
