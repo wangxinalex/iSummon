@@ -35,7 +35,7 @@ public class PickMapAddressActivity extends Activity {
 
     private void showAddressConfirmDialog(final double longitude, final double latitude) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.pick_addr_from_map_title);
+        builder.setTitle(R.string.pick_addr_from_map_dialog_title);
         View dialogContent = getLayoutInflater().inflate(R.layout.dialog_input_addr_name, null);
         final EditText nameEditor = (EditText) dialogContent.findViewById(R.id.addr_name_editor);
         builder.setView(dialogContent);

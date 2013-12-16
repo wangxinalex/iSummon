@@ -8,7 +8,7 @@
 
     <EditText
         android:id="@+id/actName"
-        style="@style/AddActForm"
+        style="@style/AddActTopLine"
         android:hint="@string/act_name_prompt">
 
         <requestFocus />
@@ -16,28 +16,77 @@
 
     <EditText
         android:id="@+id/actPlace"
-        style="@style/AddActForm2"
+        style="@style/AddActLine"
         android:editable="false"
         android:hint="@string/act_place_prompt"/>
 
-    <EditText
-        android:id="@+id/actTime"
-        style="@style/AddActForm2"
-        android:hint="@string/act_time_prompt"/>
+    <RelativeLayout
+        style="@style/AddActTransparentLine">
+        <EditText
+            android:id="@+id/add_act_start_date"
+            android:layout_alignParentLeft="true"
+            style="@style/AddActLineHalf"
+            android:editable="false"
+            android:hint="@string/act_start_date_prompt"/>
+
+        <EditText
+            android:id="@+id/add_act_start_time"
+            android:layout_alignParentRight="true"
+            style="@style/AddActLineHalf"
+            android:editable="false"
+            android:hint="@string/act_start_time_prompt"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/AddActTransparentLine">
+        <EditText
+            android:id="@+id/add_act_end_date"
+            android:layout_alignParentLeft="true"
+            style="@style/AddActLineHalf"
+            android:editable="false"
+            android:hint="@string/act_end_date_prompt"/>
+        <EditText
+            android:id="@+id/add_act_end_time"
+            android:layout_alignParentRight="true"
+            style="@style/AddActLineHalf"
+            android:editable="false"
+            android:hint="@string/act_end_time_prompt"/>
+        </RelativeLayout>
 
     <EditText
         android:id="@+id/actContent"
-        style="@style/AddActForm2"
+        style="@style/AddActLine"
         android:hint="@string/act_content_prompt"/>
 
-    <EditText
-        android:id="@+id/editText5"
-        style="@style/AddActForm2"
-        android:hint="@string/act_tag_prompt" />
+    <RelativeLayout
+        style="@style/AddActTransparentLine">
+        <EditText
+            android:id="@+id/act_type_prompt"
+            style="@style/AddActTopLine"
+            android:editable="false"
+            android:hint="@string/act_type_prompt"/>
+        <LinearLayout
+            android:id="@+id/act_type_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            style="@style/AddActTopLine">
+            <ImageView
+                android:id="@+id/act_type_image"
+                android:layout_marginLeft="@dimen/add_act_form_width"
+                android:layout_height="@dimen/add_act_type_image_size"
+                android:layout_width="@dimen/add_act_type_image_size" />
+            <TextView
+                android:id="@+id/act_type_name"
+                android:layout_marginLeft="@dimen/add_act_type_text_left_margin"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
+            </LinearLayout>
+        </RelativeLayout>
 
     <EditText
-        android:id="@+id/editText6"
-        style="@style/AddActForm2"
+        android:id="@+id/act_max_participants"
+        style="@style/AddActLine"
         android:hint="@string/act_participants_max_prompt" />
 
     <RelativeLayout

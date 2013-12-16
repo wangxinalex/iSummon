@@ -16,4 +16,12 @@
     <string name="menu_message">我的消息</string>
     <string name="menu_exit">退出</string>
 
+    <string-array name="act_types">
+        <item>运动</item>
+        <item>学习</item>
+        <item>娱乐</item>
+        <item>聚餐</item>
+        <item>其他</item>
+    </string-array>
+
 </resources>

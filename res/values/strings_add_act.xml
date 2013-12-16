@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="act_name_prompt">活动名称</string>
-    <string name="act_place_prompt">点击这里输入活动地点</string>
-    <string name="act_time_prompt">活动时间</string>
+    <string name="act_place_prompt">活动地点</string>
+    <string name="act_start_date_prompt">开始日期</string>
+    <string name="act_end_date_prompt">结束日期</string>
+    <string name="act_start_time_prompt">开始时间</string>
+    <string name="act_end_time_prompt">结束时间</string>
     <string name="act_content_prompt">活动内容</string>
-    <string name="act_tag_prompt">标签</string>
+    <string name="act_type_prompt">选择活动类别</string>
     <string name="act_participants_max_prompt">人数限制</string>
 
     <string name="address_choose">选择输入方式</string>
@@ -18,6 +21,7 @@
 
     <!-- strings in PickMapAddressActivity -->
     <string name="pick_addr_from_map_title">点击地图，选择活动地点</string>
+    <string name="pick_addr_from_map_dialog_title">为活动地点命名</string>
     <string name="input_addr_name_title">为此地起个名字</string>
     <string name="input_addr_name_msg">输入这里的名字</string>
     <string name="input_positive">确定</string>

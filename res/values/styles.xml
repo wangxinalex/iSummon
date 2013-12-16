@@ -49,14 +49,26 @@
     </style>
 
     <!-- Add act activity style -->
-    <style name="AddActForm">
+    <style name="AddActLineBase" parent="AddActTopLine">
         <item name="android:layout_width">@dimen/add_act_form_width</item>
         <item name="android:layout_height">@dimen/add_act_form_height</item>
+    </style>
+
+    <style name="AddActTopLine" parent="AddActLineBase">
         <item name="android:background">@drawable/login_form</item>
     </style>
 
-    <style name="AddActForm2" parent="AddActForm">
-        <item name="android:layout_marginTop">20dp</item>
+    <style name="AddActLine" parent="AddActTopLine">
+        <item name="android:layout_marginTop">@dimen/add_act_form_line_padding</item>
+    </style>
+
+    <style name="AddActTransparentLine" parent="AddActLineBase">
+        <item name="android:layout_marginTop">@dimen/add_act_form_line_padding</item>
+    </style>
+
+    <style name="AddActLineHalf">
+        <item name="android:layout_width">@dimen/add_act_form_half_width</item>
+        <item name="android:layout_height">@dimen/add_act_form_height</item>
     </style>
 
     <style name="AddActButtons">
