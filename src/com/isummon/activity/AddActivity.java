@@ -70,7 +70,8 @@ public class AddActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == GET_ADDRESS) {
             if(resultCode == RESULT_OK) {
-                ((EditText)findViewById(R.id.actPlace)).setText(data.getStringExtra(ADDRESS_NAME));
+                ((EditText)findViewById(R.id.actPlace)).setText(data.getStringExtra(ADDRESS_NAME)
+                + data.getDoubleExtra(LATITUDE, DEFAULT_LATITUDE) + "   ");
                 result.setHdAddress(data.getStringExtra(ADDRESS_NAME));
                 result.setLatitude(data.getDoubleExtra(LATITUDE, DEFAULT_LATITUDE));
                 result.setLongitude(data.getDoubleExtra(LONGITUDE, DEFAULT_LONGITUDE));
@@ -134,14 +135,14 @@ public class AddActivity extends Activity {
 
     private void onChooseMap() {
         // fake return
-        ((EditText)findViewById(R.id.actPlace)).setText(DEFAULT_ADDR_NAME);
-        result.setHdAddress(DEFAULT_ADDR_NAME);
-        result.setLatitude(DEFAULT_LATITUDE);
-        result.setLongitude(DEFAULT_LONGITUDE);
+//        ((EditText)findViewById(R.id.actPlace)).setText(DEFAULT_ADDR_NAME);
+//        result.setHdAddress(DEFAULT_ADDR_NAME);
+//        result.setLatitude(DEFAULT_LATITUDE);
+//        result.setLongitude(DEFAULT_LONGITUDE);
 
-//        startActivityForResult(
-//                new Intent(this, PickMapAddressActivity.class),
-//                GET_ADDRESS);
+        startActivityForResult(
+                new Intent(this, PickMapAddressActivity.class),
+                GET_ADDRESS);
     }
 
     private void onChooseSearch() {

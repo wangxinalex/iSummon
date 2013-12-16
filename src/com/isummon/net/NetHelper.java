@@ -1,6 +1,7 @@
 package com.isummon.net;
 
 import com.isummon.model.HDActivity;
+import com.isummon.model.Invitation;
 import com.isummon.model.SimpleHDActivity;
 import com.isummon.model.UserModel;
 
@@ -240,8 +241,30 @@ public class NetHelper {
     //---------其他
 
     //----------------------------通知用户--------------------------------------------------
+    public static void invite(int hdId, ArrayList<Integer> targerIds) {
 
+    }
 
+    /**
+     *
+     * @param nickname
+     * @return null if no result
+     */
+    public static UserModel findUserByName(String nickname) {
+        return null;
+    }
+
+    public static void addContact(int targetId) {
+
+    }
+
+    public static void removeContact(int targetId) {
+
+    }
+
+    public static ArrayList<UserModel> getAllContacts() {
+        return null;
+    }
 }
 
 

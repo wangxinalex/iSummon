@@ -112,7 +112,7 @@ public class ISummonMapView extends MapView {
         }
     }
 
-    public void showHd(List<Integer> hdIdList) {
+    public void showHd(List<SimpleHDActivity> hdIdList) {
 
     }
 

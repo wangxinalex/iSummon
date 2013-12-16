@@ -5,6 +5,8 @@ public class UserModel {
 	private String userName;
 	private String nickName;
 	private String passwd;
+    private int avatar;
+
 	public int getUserId() {
 		return userId;
 	}
@@ -29,10 +31,23 @@ public class UserModel {
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
-	@Override
-	public String toString() {
-		return "UserModel [userId=" + userId + ", userName=" + userName
-				+ ", nickName=" + nickName + ", passwd=" + passwd + "]";
-	}
-	
+
+    public int getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", passwd='" + passwd + '\'' +
+                ", avatar=" + avatar +
+                '}';
+    }
 }
