@@ -128,6 +128,9 @@ public class MainActivity extends Activity {
         }
 
         switch (item.getItemId()) {
+            case R.id.menu_add_fromtext:
+                startActivity(new Intent(getApplicationContext(), AddActivity.class));
+                break;
             case R.id.menu_all_act:
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), ListActivity.class);
