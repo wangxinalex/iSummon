@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.isummon.R;
 import com.isummon.model.HDActivity;
+import com.isummon.model.HDType;
 
 import java.util.Calendar;
 
@@ -136,11 +137,38 @@ public class AddActivity extends Activity {
     }
 
     private void showTypePicker() {
-        typePicker = new Dialog(this);
-        ListView listView = (ListView) getLayoutInflater().inflate(R.layout.dialog_pick_type, null);
-        listView.setAdapter(new HDTypePickerAdapter(this));
-        typePicker.setContentView(listView);
-        typePicker.show();
+        final ImageView typeImage = (ImageView)findViewById(R.id.act_type_image);
+        final TextView typeText = (TextView)findViewById(R.id.act_type_name);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.act_type_prompt);
+        builder.setItems(R.array.act_types, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0: result.setHdType(HDType.SPORT);
+                        typeImage.setImageResource(R.drawable.sport);
+                        break;
+                    case 1: result.setHdType(HDType.STUDY);
+                        typeImage.setImageResource(R.drawable.study);
+                        break;
+                    case 2: result.setHdType(HDType.ENTERTAINMENT);
+                        typeImage.setImageResource(R.drawable.entertainment);
+                        break;
+                    case 3: result.setHdType(HDType.DINING);
+                        typeImage.setImageResource(R.drawable.dining);
+                        break;
+                    case 4: result.setHdType(HDType.OTHER);
+                        typeImage.setImageResource(R.drawable.other);
+                        break;
+                }
+                String[] typeNames = getResources().getStringArray(R.array.act_types);
+                typeText.setText(typeNames[which]);
+
+                findViewById(R.id.act_type_prompt).setVisibility(View.GONE);
+                findViewById(R.id.act_type_content).setVisibility(View.VISIBLE);
+            }
+        });
+        builder.create().show();
     }
 
     private void showDatePicker(final Calendar date, final int layoutId) {

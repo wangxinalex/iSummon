@@ -68,7 +68,7 @@
             android:hint="@string/act_type_prompt"/>
         <LinearLayout
             android:id="@+id/act_type_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:gravity="center_vertical"
             style="@style/AddActTopLine">
             <ImageView

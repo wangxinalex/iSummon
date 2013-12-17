@@ -116,7 +116,7 @@ public class ISummonMapView extends MapView {
 
     }
 
-    private void showAddActActivity(int longitude, int latitude) {
+    private void showAddActActivity(double longitude, double latitude) {
         Intent intent = new Intent(getContext(), AddActivity.class);
         intent.putExtra("longitude", longitude);
         intent.putExtra("latitude", latitude);
