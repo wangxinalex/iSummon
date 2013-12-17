@@ -1,7 +1,7 @@
 package com.isummon.model;
 
 public class HDActivity {
-	public static final String tmFormat = "yyyy-MM-dd:hhmmss";
+	public static final String tmFormat = "yyyy-MM-dd:hhmm";
 
     private int hdId;
 	private String hdName;

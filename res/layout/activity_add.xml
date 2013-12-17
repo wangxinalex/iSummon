@@ -87,10 +87,22 @@
             </LinearLayout>
         </RelativeLayout>
 
-    <EditText
-        android:id="@+id/act_max_participants"
-        style="@style/AddActLine"
-        android:hint="@string/act_participants_max_prompt" />
+    <RelativeLayout
+        style="@style/AddActTransparentLine">
+        <EditText
+            android:id="@+id/act_max_participants"
+            style="@style/AddActLineHalf"
+            android:inputType="numberDecimal"
+            android:hint="@string/act_participants_max_prompt" />
+        <EditText
+            android:id="@+id/act_property"
+            android:layout_alignParentRight="true"
+            style="@style/AddActLineHalf"
+            android:editable="false"
+            android:hint="@string/act_property_prompt"/>
+    </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_marginTop="40dp"
@@ -98,14 +110,14 @@
         android:layout_width="match_parent">
 
         <Button
+            android:id="@+id/act_positive"
             style="@style/AddActButtons"
-            android:layout_alignParentLeft="true"
-            android:text="@string/cancel_add" />
+            android:layout_alignParentLeft="true"/>
 
         <Button
+            android:id="@+id/act_negative"
             style="@style/AddActButtons"
-            android:layout_alignParentRight="true"
-            android:text="@string/add_act" />
+            android:layout_alignParentRight="true"/>
 
         </RelativeLayout>
 

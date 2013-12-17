@@ -9,6 +9,7 @@
     <string name="act_content_prompt">活动内容</string>
     <string name="act_type_prompt">选择活动类别</string>
     <string name="act_participants_max_prompt">人数限制</string>
+    <string name="act_property_prompt">其他限制</string>
 
     <string name="address_choose">选择输入方式</string>
     <string-array name="address_input_source">
@@ -31,4 +32,22 @@
     <!-- strings in SearchAddressActivity -->
     <string name="search_addr_title">搜索地点</string>
     <string name="search_not_available">目前暂不支持搜索地点</string>
+
+    <!-- error hint -->
+    <string name="error_no_hdname">请输入活动名称</string>
+    <string name="error_no_place">请输入活动地点</string>
+    <string name="error_no_start_date">请选择活动开始日期</string>
+    <string name="error_no_end_date">请选择活动结束日期</string>
+    <string name="error_no_start_time">请选择活动开始时间</string>
+    <string name="error_no_end_time">请选择活动结束时间</string>
+    <string name="error_no_content">请输入活动内容</string>
+    <string name="error_no_type">请选择活动类型</string>
+    <string name="error_no_max_participants">请输入人数上限</string>
+    <string name="error_max_not_number">输入的人数上线不是有效数字</string>
+    <string name="error_no_property">请选择活动其他限制</string>
+
+    <!-- result -->
+    <string name="add_success">创建活动成功！</string>
+    <string name="add_failed">未能成功创建活动</string>
+    <string name="add_waiting">正在提交创建活动请求</string>
 </resources>
