@@ -166,6 +166,24 @@ public class AddActivity extends Activity {
 
                 findViewById(R.id.act_type_prompt).setVisibility(View.GONE);
                 findViewById(R.id.act_type_content).setVisibility(View.VISIBLE);
+                findViewById(R.id.act_type_content).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showTypePicker();
+                    }
+                });
+                findViewById(R.id.act_type_name).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showTypePicker();
+                    }
+                });
+                findViewById(R.id.act_type_image).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showTypePicker();
+                    }
+                });
             }
         });
         builder.create().show();
@@ -306,8 +324,8 @@ public class AddActivity extends Activity {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    findViewById(R.id.act_type_prompt).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.act_type_content).setVisibility(View.VISIBLE);
+//                    findViewById(R.id.act_type_prompt).setVisibility(View.INVISIBLE);
+//                    findViewById(R.id.act_type_content).setVisibility(View.VISIBLE);
                     ((ImageView)findViewById(R.id.act_type_image)).setImageResource(getTypeImageId(position));
                     ((TextView)findViewById(R.id.act_type_name)).setText(getItem(position));
                     typePicker.dismiss();

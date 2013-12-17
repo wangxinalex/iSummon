@@ -73,12 +73,15 @@
             style="@style/AddActTopLine">
             <ImageView
                 android:id="@+id/act_type_image"
-                android:layout_marginLeft="@dimen/add_act_form_width"
+                android:layout_marginLeft="@dimen/add_act_type_image_left_margin"
                 android:layout_height="@dimen/add_act_type_image_size"
                 android:layout_width="@dimen/add_act_type_image_size" />
             <TextView
                 android:id="@+id/act_type_name"
                 android:layout_marginLeft="@dimen/add_act_type_text_left_margin"
+                android:textColor="#000"
+                android:textSize="@dimen/add_act_form_text_size"
+                android:gravity="center_vertical"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
             </LinearLayout>
