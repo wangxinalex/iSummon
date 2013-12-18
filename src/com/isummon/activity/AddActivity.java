@@ -170,7 +170,7 @@ public class AddActivity extends Activity {
 
     private void showPropertyPicker() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.act_type_prompt);
+        builder.setTitle(R.string.act_property_prompt);
         builder.setItems(HDProperty.getChns(), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 EditText promptText = (EditText) findViewById(R.id.act_property);
