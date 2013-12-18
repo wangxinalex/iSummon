@@ -9,6 +9,7 @@
     <string name="act_content_prompt">活动内容</string>
     <string name="act_type_prompt">选择活动类别</string>
     <string name="act_participants_max_prompt">人数限制</string>
+    <string name="act_participants_prompt">当前人数/总人数</string>
     <string name="act_property_prompt">其他限制</string>
 
     <string name="address_choose">选择输入方式</string>

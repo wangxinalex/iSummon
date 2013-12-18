@@ -1,8 +1,8 @@
 package com.isummon.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,8 +13,6 @@ import com.isummon.R;
 import com.isummon.model.ActListMode;
 import com.isummon.net.FakeDataProvider;
 import com.isummon.view.SimpleHdAdapter;
-
-import java.util.ArrayList;
 
 
 public class ListActivity extends Activity {
@@ -49,7 +47,9 @@ public class ListActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                parent.getItemAtPosition(position);
+                Intent intent = new Intent(ListActivity.this, ShowHdDetailActivity.class);
+                intent.putExtra(ShowHdDetailActivity.HDACTIVITY, FakeDataProvider.getHDById((int)id));
+                startActivity(intent);
             }
         });
     }

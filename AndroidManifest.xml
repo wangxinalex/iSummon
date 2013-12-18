@@ -53,8 +53,6 @@
 
         </activity>
         <activity
-            android:name="com.isummon.activity.ShowActivity"/>
-        <activity
             android:name="com.isummon.activity.ListActivity"
             android:label="@string/title_activity_list"/>
 
@@ -63,6 +61,10 @@
 
         <activity android:name=".activity.SearchAddressActivity"
             android:label="@string/search_addr_title"/>
+
+        <activity android:name=".activity.ShowHdDetailActivity"
+            android:label="@string/title_activity_show"
+            android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>

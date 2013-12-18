@@ -49,10 +49,10 @@ public class AddActivity extends Activity {
         // 'title bar' and 'action bar' refer to the same widget
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		setContentView(R.layout.activity_act);
+		setContentView(R.layout.activity_add);
 
         // Only set bg in layout file is not enough: a dark bg still exists.
-        getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg);
+        getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg_white);
 
         result = new HDActivity();
         hdStartDate = hdEndDate = hdStartTime = hdEndTime = Calendar.getInstance();

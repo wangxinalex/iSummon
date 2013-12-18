@@ -98,6 +98,8 @@ public class HDActivity implements Serializable {
         this.latitude = latitude;
     }
 
+    public void setHdId(int id) { this.hdId = id; }
+
     public int getHdId() {
         return hdId;
     }
@@ -132,5 +134,18 @@ public class HDActivity implements Serializable {
 
     public void setHdOriginName(String hdOriginName) {
         this.hdOriginName = hdOriginName;
+    }
+
+    public SimpleHDActivity getSimpleModel() {
+        return new SimpleHDActivity(
+                hdId,
+                hdName,
+                hdOrigin,
+                hdOriginName,
+                longitude,
+                latitude,
+                hdType,
+                hdStatus
+        );
     }
 }

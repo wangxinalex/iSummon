@@ -38,7 +38,7 @@ public class SimpleHdAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return resource.get(position).getHdId();
     }
 
     @Override

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.Toast;
 
 import com.baidu.mapapi.map.ItemizedOverlay;
 import com.baidu.mapapi.map.MKMapTouchListener;
@@ -17,12 +15,11 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.isummon.R;
 import com.isummon.activity.AddActivity;
 import com.isummon.activity.PickMapAddressActivity;
-import com.isummon.activity.ShowActivity;
+import com.isummon.activity.ShowHdDetailActivity;
 import com.isummon.model.SimpleHDActivity;
 import com.isummon.net.NetHelper;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -179,7 +176,7 @@ public class ISummonMapView extends MapView {
             getItem(index);
 //			Toast.makeText(getApplicationContext(), "item index: " + index + " content: " + item.getTitle(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
-            intent.setClass(getContext().getApplicationContext(), ShowActivity.class);
+            intent.setClass(getContext().getApplicationContext(), ShowHdDetailActivity.class);
             intent.putExtra("index", index);
             getContext().startActivity(intent);
             return false;
