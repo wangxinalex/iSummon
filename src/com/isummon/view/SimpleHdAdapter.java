@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,7 +56,7 @@ public class SimpleHdAdapter extends BaseAdapter {
         typeName.setText(hdModel.getHdType().getChn());
 
         TextView originName = (TextView) convertView.findViewById(R.id.origin_name);
-        originName.setText(hdModel.getHdOrigin());
+        originName.setText(hdModel.getHdOriginName());
 
         TextView hdName = (TextView) convertView.findViewById(R.id.hd_name);
         hdName.setText(hdModel.getHdName());

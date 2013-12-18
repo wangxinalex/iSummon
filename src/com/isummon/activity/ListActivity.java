@@ -43,9 +43,15 @@ public class ListActivity extends Activity {
             }
         });
 
-        ((ListView)findViewById(R.id.list_content)).setAdapter(
+        ListView listView = ((ListView)findViewById(R.id.list_content));
+        listView.setAdapter(
                 new SimpleHdAdapter(this, FakeDataProvider.getSimpleHDActivities()));
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                parent.getItemAtPosition(position);
+            }
+        });
     }
 
 }

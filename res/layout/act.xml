@@ -1,17 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    tools:context=".AddActivity" >
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/actName"
         style="@style/AddActTopLine"
         android:hint="@string/act_name_prompt">
-
-        <requestFocus />
     </EditText>
 
     <EditText
@@ -52,7 +48,7 @@
             style="@style/AddActLineHalf"
             android:editable="false"
             android:hint="@string/act_end_time_prompt"/>
-        </RelativeLayout>
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/actContent"
@@ -84,8 +80,8 @@
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         style="@style/AddActTransparentLine">
@@ -101,22 +97,5 @@
             android:editable="false"
             android:hint="@string/act_property_prompt"/>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_marginTop="40dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-
-        <Button
-            android:id="@+id/act_positive"
-            style="@style/AddActButtons"
-            android:layout_alignParentLeft="true"/>
-
-        <Button
-            android:id="@+id/act_negative"
-            style="@style/AddActButtons"
-            android:layout_alignParentRight="true"/>
-
-        </RelativeLayout>
 
 </LinearLayout>

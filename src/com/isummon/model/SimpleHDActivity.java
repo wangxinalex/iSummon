@@ -14,8 +14,8 @@ package com.isummon.model;
 public class SimpleHDActivity {
     private int hdId;            //活动的id
     private String hdName;        //活动的名称
-    private String hdOrigin;        //活动发起者的id，
-    // 最好还是拿到发起者名字
+    private String hdOriginName;        //活动发起者的id，
+    private int hdOriginId;
     private double hdLongitude;    //活动的经度
     private double hdLatitude;    //纬度
     private HDType hdType;
@@ -26,10 +26,11 @@ public class SimpleHDActivity {
         this.hdLatitude = hdLatitude;
         this.hdLongitude = hdLongitude;
     }
-    public SimpleHDActivity(int hdId, String hdName, String hdOrigin, double hdLongitude, double hdLatitude, HDType hdType, HDStatus hdStatus) {
+    public SimpleHDActivity(int hdId, String hdName, int hdOriginId, String hdOriginName, double hdLongitude, double hdLatitude, HDType hdType, HDStatus hdStatus) {
         this.hdId = hdId;
         this.hdName = hdName;
-        this.hdOrigin = hdOrigin;
+        this.hdOriginId = hdOriginId;
+        this.hdOriginName = hdOriginName;
         this.hdLongitude = hdLongitude;
         this.hdLatitude = hdLatitude;
         this.hdType = hdType;
@@ -44,8 +45,8 @@ public class SimpleHDActivity {
         return hdName;
     }
 
-    public String getHdOrigin() {
-        return hdOrigin;
+    public String getHdOriginName() {
+        return hdOriginName;
     }
 
     public double getHdLongitude() {
@@ -62,5 +63,13 @@ public class SimpleHDActivity {
 
     public HDStatus getHdStatus() {
         return hdStatus;
+    }
+
+    public int getHdOriginId() {
+        return hdOriginId;
+    }
+
+    public void setHdOriginId(int hdOriginId) {
+        this.hdOriginId = hdOriginId;
     }
 }

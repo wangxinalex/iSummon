@@ -2,22 +2,17 @@ package com.isummon.activity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -54,7 +49,7 @@ public class AddActivity extends Activity {
         // 'title bar' and 'action bar' refer to the same widget
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		setContentView(R.layout.activity_add);
+		setContentView(R.layout.activity_act);
 
         // Only set bg in layout file is not enough: a dark bg still exists.
         getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg);
