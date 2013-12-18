@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.baidu.mapapi.BMapManager;
@@ -16,7 +17,7 @@ import com.isummon.R;
 import com.isummon.view.ISummonMapView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FullScreenActivity {
     private BMapManager mBMapMan;
     private ISummonMapView mMapView;
     private DrawerLayout mDrawerLayout;
@@ -28,7 +29,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         mBMapMan = ((TestApplication) this.getApplication()).getBMapManager();
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        ((LinearLayout)findViewById(android.R.id.content).findViewById(R.id.content)).addView(getLayoutInflater().inflate(R.layout.activity_main, null));
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
