@@ -17,4 +17,9 @@
     <dimen name="pick_act_type_item_image_left_margin">20dp</dimen>
     <dimen name="pick_act_type_item_image_right_margin">20dp</dimen>
 
+    <dimen name="act_list_item_height">100dp</dimen>
+    <dimen name="act_list_image_size">70dp</dimen>
+    <dimen name="act_list_origin_name_size">20sp</dimen>
+    <dimen name="act_list_other_text_size">15sp</dimen>
+
 </resources>

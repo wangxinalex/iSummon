@@ -102,8 +102,6 @@
             android:hint="@string/act_property_prompt"/>
     </RelativeLayout>
 
-
-
     <RelativeLayout
         android:layout_marginTop="40dp"
         android:layout_height="wrap_content"

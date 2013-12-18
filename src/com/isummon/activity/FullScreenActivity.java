@@ -100,6 +100,7 @@ public class FullScreenActivity extends Activity {
                 intent.setClass(getApplicationContext(), ListActivity.class);
                 startActivity(intent);
                 break;
+
             case R.id.menu_exit:
                 // DBL!!
                 android.os.Process.killProcess(android.os.Process.myPid());

@@ -14,7 +14,8 @@ package com.isummon.model;
 public class SimpleHDActivity {
     private int hdId;            //活动的id
     private String hdName;        //活动的名称
-    private int hdOrigin;        //活动发起者的id，
+    private String hdOrigin;        //活动发起者的id，
+    // 最好还是拿到发起者名字
     private double hdLongitude;    //活动的经度
     private double hdLatitude;    //纬度
     private HDType hdType;
@@ -25,7 +26,7 @@ public class SimpleHDActivity {
         this.hdLatitude = hdLatitude;
         this.hdLongitude = hdLongitude;
     }
-    public SimpleHDActivity(int hdId, String hdName, int hdOrigin, double hdLongitude, double hdLatitude, HDType hdType, HDStatus hdStatus) {
+    public SimpleHDActivity(int hdId, String hdName, String hdOrigin, double hdLongitude, double hdLatitude, HDType hdType, HDStatus hdStatus) {
         this.hdId = hdId;
         this.hdName = hdName;
         this.hdOrigin = hdOrigin;
@@ -43,7 +44,7 @@ public class SimpleHDActivity {
         return hdName;
     }
 
-    public int getHdOrigin() {
+    public String getHdOrigin() {
         return hdOrigin;
     }
 

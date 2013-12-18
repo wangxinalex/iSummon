@@ -58,9 +58,6 @@
         <activity
             android:name="com.isummon.activity.ListActivity"
             android:label="@string/title_activity_list"/>
-        <activity
-            android:name=".activity.RegisterActivity"
-            android:label="注册" />
 
         <activity android:name=".activity.PickMapAddressActivity"
             android:label="@string/pick_addr_from_map_title"/>
