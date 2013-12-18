@@ -10,22 +10,29 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.baidu.mapapi.BMapManager;
 import com.isummon.R;
 import com.isummon.view.ISummonMapView;
 
 /**
  * Created by horzwxy on 12/15/13.
  */
-public class PickMapAddressActivity extends Activity {
+public class PickMapAddressActivity extends FullScreenActivity {
+
+    private BMapManager mBMapMan;
+    private ISummonMapView mMapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pick_map_addr);
+        addContentView(R.layout.activity_main2);
 
-        ISummonMapView mapView = (ISummonMapView) findViewById(R.id.map_view);
-        mapView.setLongTouchAvailable(false);
-        mapView.setAddressPickedListener(new AddressPickedListener() {
+        mBMapMan = ((TestApplication) this.getApplication()).getBMapManager();
+
+        mMapView = (ISummonMapView) findViewById(R.id.bmapsView2);
+
+        mMapView.setLongTouchAvailable(false);
+        mMapView.setAddressPickedListener(new AddressPickedListener() {
             @Override
             public void onAddressPicked(double longitude, double latitude) {
                 showAddressConfirmDialog(longitude, latitude);
@@ -80,5 +87,46 @@ public class PickMapAddressActivity extends Activity {
 
     public interface AddressPickedListener {
         public void onAddressPicked(double longitude, double latitude);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mMapView.destroy();
+        if (mBMapMan != null) {
+            mBMapMan.destroy();
+            mBMapMan = null;
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        mMapView.onPause();
+        if (mBMapMan != null) {
+            mBMapMan.stop();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        mMapView.onResume();
+        if (mBMapMan != null) {
+            mBMapMan.start();
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mMapView.onSaveInstanceState(outState);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mMapView.onRestoreInstanceState(savedInstanceState);
     }
 }
