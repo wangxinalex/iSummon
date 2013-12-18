@@ -17,19 +17,16 @@ import com.isummon.view.ISummonMapView;
 /**
  * Created by horzwxy on 12/15/13.
  */
-public class PickMapAddressActivity extends FullScreenActivity {
+public class PickMapAddressActivity extends Activity {
 
-    private BMapManager mBMapMan;
     private ISummonMapView mMapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_pick_addr_map);
 
-        mBMapMan = ((TestApplication) this.getApplication()).getBMapManager();
-
-        mMapView = (ISummonMapView) findViewById(R.id.bmapsView2);
+        mMapView = (ISummonMapView) findViewById(R.id.bmapsView);
 
         mMapView.setLongTouchAvailable(false);
         mMapView.setAddressPickedListener(new AddressPickedListener() {
@@ -92,28 +89,18 @@ public class PickMapAddressActivity extends FullScreenActivity {
     @Override
     protected void onDestroy() {
         mMapView.destroy();
-        if (mBMapMan != null) {
-            mBMapMan.destroy();
-            mBMapMan = null;
-        }
         super.onDestroy();
     }
 
     @Override
     protected void onPause() {
         mMapView.onPause();
-        if (mBMapMan != null) {
-            mBMapMan.stop();
-        }
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         mMapView.onResume();
-        if (mBMapMan != null) {
-            mBMapMan.start();
-        }
         super.onResume();
     }
 

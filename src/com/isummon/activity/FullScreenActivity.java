@@ -29,7 +29,6 @@ public class FullScreenActivity extends Activity {
 
         setContentView(R.layout.activity_frame);
 
-
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 

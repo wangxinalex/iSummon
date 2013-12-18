@@ -24,10 +24,6 @@ public class MainActivity extends FullScreenActivity {
     @Override
     protected void onDestroy() {
         mMapView.destroy();
-        if (mBMapMan != null) {
-            mBMapMan.destroy();
-            mBMapMan = null;
-        }
         super.onDestroy();
     }
 
@@ -43,6 +39,8 @@ public class MainActivity extends FullScreenActivity {
     @Override
     protected void onResume() {
         mMapView.onResume();
+        // I found if you wants to respond the long-tap action, you must start the manager.
+        // And if you don't want to respond, it's useless to do anything while the manager is started.
         if (mBMapMan != null) {
             mBMapMan.start();
         }
