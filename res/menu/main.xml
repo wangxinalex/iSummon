@@ -14,18 +14,6 @@
         android:icon="@drawable/add_act"
         android:title="@string/menu_activity_list">
 
-        <menu>
-            <item
-                android:id="@+id/menu_add_frommap"
-                android:icon="@drawable/earth"
-                android:title="@string/menu_activity_add_frommap" />
-            <item
-                android:id="@+id/menu_add_fromtext"
-                android:icon="@drawable/earth"
-                android:title="@string/menu_activity_add_fromtext" />
-
-        </menu>
-
     </item>
 
 
@@ -34,7 +22,7 @@
         android:icon="@drawable/message"
         android:orderInCategory="102"
         android:showAsAction="ifRoom"
-        android:title="@string/menu_activity_list" />
+        android:title="@string/menu_message" />
 
     <item
         android:id="@+id/menu_all_act"

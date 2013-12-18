@@ -91,19 +91,19 @@ public class FullScreenActivity extends Activity {
         }
 
         switch (item.getItemId()) {
-            case R.id.menu_add_fromtext:
+            case R.id.menu_add_act:
                 startActivity(new Intent(getApplicationContext(), AddActivity.class));
                 break;
+
             case R.id.menu_all_act:
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), ListActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menu_exit:
+                // DBL!!
                 android.os.Process.killProcess(android.os.Process.myPid());
-
         }
-
 
         return super.onOptionsItemSelected(item);
     }

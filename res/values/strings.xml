@@ -9,8 +9,6 @@
     <!-- global menu strings -->
     <string name="action_settings">设置</string>
     <string name="menu_activity_add">创建活动</string>
-    <string name="menu_activity_add_frommap">从地图上选择地点</string>
-    <string name="menu_activity_add_fromtext">直接输入活动信息</string>
     <string name="menu_activity_search">搜索活动</string>
     <string name="menu_activity_list">查看活动</string>
     <string name="menu_message">我的消息</string>

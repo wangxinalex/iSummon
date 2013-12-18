@@ -17,7 +17,6 @@ public class MainActivity extends FullScreenActivity {
 
         mBMapMan = ((TestApplication) this.getApplication()).getBMapManager();
         addContentView(R.layout.activity_main);
-
         mMapView = (ISummonMapView) findViewById(R.id.bmapsView);
     }
 
@@ -51,7 +50,6 @@ public class MainActivity extends FullScreenActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mMapView.onSaveInstanceState(outState);
-
     }
 
     @Override
