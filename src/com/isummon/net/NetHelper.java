@@ -251,7 +251,7 @@ public class NetHelper {
      * @return null if no result
      */
     public static UserModel findUserByName(String nickname) {
-        return null;
+        return FakeDataProvider.findUserByName(nickname);
     }
 
     public static void addContact(int targetId) {
