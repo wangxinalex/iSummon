@@ -13,7 +13,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.isummon.R;
-import com.isummon.activity.AddActivity;
+import com.isummon.activity.AddActActivity;
 import com.isummon.activity.PickMapAddressActivity;
 import com.isummon.activity.ShowHdDetailActivity;
 import com.isummon.model.SimpleHDActivity;
@@ -65,8 +65,8 @@ public class ISummonMapView extends MapView {
                 mOverlay.addItem(new OverlayItem(point, "", ""));
                 refresh();
 
-                // I don't know why, but MapView completes invalidating not before the AddActivity starts
-                // So I cannot see the newly-added balloon through the AddActivity background
+                // I don't know why, but MapView completes invalidating not before the AddActActivity starts
+                // So I cannot see the newly-added balloon through the AddActActivity background
                 // this is the dummy solution: delay starting activity
                 // todo
                 Timer timer = new Timer();
@@ -114,7 +114,7 @@ public class ISummonMapView extends MapView {
     }
 
     private void showAddActActivity(double longitude, double latitude) {
-        Intent intent = new Intent(getContext(), AddActivity.class);
+        Intent intent = new Intent(getContext(), AddActActivity.class);
         intent.putExtra("longitude", longitude);
         intent.putExtra("latitude", latitude);
         getContext().startActivity(intent);

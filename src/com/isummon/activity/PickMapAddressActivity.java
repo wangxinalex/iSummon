@@ -65,9 +65,9 @@ public class PickMapAddressActivity extends MapActivity {
 
     private void onReturnAddressResult(String name, double longitude, double latitude) {
         Intent intent = new Intent();
-        intent.putExtra(AddActivity.ADDRESS_NAME, name );
-        intent.putExtra(AddActivity.LONGITUDE, longitude);
-        intent.putExtra(AddActivity.LATITUDE, latitude);
+        intent.putExtra(AddActActivity.ADDRESS_NAME, name );
+        intent.putExtra(AddActActivity.LONGITUDE, longitude);
+        intent.putExtra(AddActActivity.LATITUDE, latitude);
         setResult(RESULT_OK, intent);
         finish();
     }

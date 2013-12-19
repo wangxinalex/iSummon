@@ -25,7 +25,7 @@ import com.isummon.model.HDType;
 import java.util.Calendar;
 
 
-public class AddActivity extends Activity {
+public class AddActActivity extends Activity {
 
     static final String ADDRESS_NAME = "address_name";
     static final String LONGITUDE = "longitude";

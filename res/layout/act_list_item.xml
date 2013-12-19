@@ -23,8 +23,7 @@
             android:id="@+id/type_name"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="@dimen/act_list_other_text_size"
-            android:text="聚餐" />
+            android:textSize="@dimen/act_list_other_text_size" />
 
     </LinearLayout>
 

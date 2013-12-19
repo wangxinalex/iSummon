@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent">
+
+        <EditText
+            android:id="@+id/search_contact_name_input"
+            android:layout_height="match_parent"
+            android:layout_width="200dp"
+            android:inputType="text"
+            android:hint="@string/input_username"/>
+
+        <Button
+            android:background="@drawable/search"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:onClick="doSearch"/>
+
+        </LinearLayout>
+
+    <ListView
+        android:id="@+id/contact_search_result"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+</LinearLayout>
