@@ -48,7 +48,7 @@ public class ManageContactActivity extends Activity {
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_add_act:
+            case R.id.menu_add_contact:
                 startActivity(new Intent(this, AddContactActivity.class));
                 break;
             default: return super.onMenuItemSelected(featureId, item);

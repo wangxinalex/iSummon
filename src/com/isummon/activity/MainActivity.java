@@ -9,10 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.baidu.mapapi.BMapManager;
 import com.isummon.R;
+import com.isummon.model.OptionListItem;
 import com.isummon.widget.ISummonMapView;
 
 
@@ -57,6 +61,24 @@ public class MainActivity extends Activity {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         mDrawer = (LinearLayout) findViewById(R.id.main_drawer);
+
+        ListView options = (ListView) findViewById(R.id.main_drawer_options);
+        options.setAdapter(new ArrayAdapter<OptionListItem>(
+                this,
+                android.R.layout.simple_list_item_1,
+                OptionListItem.values()
+        ));
+        options.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                OptionListItem item = (OptionListItem) parent.getItemAtPosition(position);
+                switch (item) {
+                    case MANAGE_CONTACT:
+                        startActivity(new Intent(MainActivity.this, ManageContactActivity.class));
+                        break;
+                }
+            }
+        });
 
         mBMapMan = ((TestApplication) this.getApplication()).getBMapManager();
         mMapView = (ISummonMapView) findViewById(R.id.bmapsView);
