@@ -45,7 +45,7 @@
 
         <activity
             android:theme="@android:style/Theme.Dialog"
-            android:name="com.isummon.activity.AddActivity"/>
+            android:name=".activity.AddActActivity"/>
         <activity
             android:name="com.isummon.activity.LoginActivity"
             android:label="@string/title_activity_login"
@@ -64,6 +64,12 @@
 
         <activity android:name=".activity.ShowHdDetailActivity"
             android:label="@string/title_activity_show"
+            android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".activity.ActMapActivity"
+            android:label="@string/title_activity_map"/>
+        <activity android:name=".activity.ManageContactActivity"
+            android:label="@string/title_manage_contact"/>
+        <activity android:name=".activity.AddContactActivity"
             android:theme="@android:style/Theme.Dialog"/>
     </application>
 
