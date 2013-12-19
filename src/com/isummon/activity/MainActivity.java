@@ -102,6 +102,19 @@ public class MainActivity extends Activity {
                     case MANAGE_CONTACT:
                         startActivity(new Intent(MainActivity.this, ManageContactActivity.class));
                         break;
+                    case MY_MESSAGE:
+                        break;
+                    case VIEW_ALL:
+                        Intent intent = new Intent();
+                        intent.setClass(getApplicationContext(), ListActivity.class);
+                        startActivity(intent);
+                        break;
+                    case ADD_ACT:
+                        startActivity(new Intent(getApplicationContext(), AddActActivity.class));
+                        break;
+                    case EXIT:
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        break;
                 }
                 mDrawerLayout.closeDrawers();
             }
@@ -173,22 +186,6 @@ public class MainActivity extends Activity {
 
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-        }
-
-        switch (item.getItemId()) {
-            case R.id.menu_add_act:
-                startActivity(new Intent(getApplicationContext(), AddActActivity.class));
-                break;
-
-            case R.id.menu_all_act:
-                Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), ListActivity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.menu_exit:
-                // DBL!!
-                android.os.Process.killProcess(android.os.Process.myPid());
         }
 
         return super.onOptionsItemSelected(item);
