@@ -26,4 +26,8 @@ public enum ActListMode {
         }
         return result;
     }
+
+    public String toString() {
+        return this.chn;
+    }
 }

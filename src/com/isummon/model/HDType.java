@@ -38,4 +38,9 @@ public enum HDType implements Serializable {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return this.chn;
+    }
 }
