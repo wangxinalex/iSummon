@@ -5,6 +5,7 @@
 
     <!-- activity title strings -->
     <string name="title_activity_list">活动列表</string>
+    <string name="title_activity_map">活动地图</string>
 
     <!-- global menu strings -->
     <string name="action_settings">设置</string>

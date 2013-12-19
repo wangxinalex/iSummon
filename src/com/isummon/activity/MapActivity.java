@@ -1,23 +1,26 @@
 package com.isummon.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 
-import com.baidu.mapapi.BMapManager;
 import com.isummon.R;
 import com.isummon.widget.ISummonMapView;
 
+/**
+ * Created by horzwxy on 12/19/13.
+ */
+public class MapActivity extends Activity {
 
-public class MainActivity extends FullScreenActivity {
-    private BMapManager mBMapMan;
-    private ISummonMapView mMapView;
+    protected ISummonMapView mMapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map_display);
 
-        mBMapMan = ((TestApplication) this.getApplication()).getBMapManager();
-        addContentView(R.layout.activity_main);
         mMapView = (ISummonMapView) findViewById(R.id.bmapsView);
+
+        mMapView.setLongTouchAvailable(false);
     }
 
     @Override
@@ -29,20 +32,12 @@ public class MainActivity extends FullScreenActivity {
     @Override
     protected void onPause() {
         mMapView.onPause();
-        if (mBMapMan != null) {
-            mBMapMan.stop();
-        }
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         mMapView.onResume();
-        // I found if you wants to respond the long-tap action, you must start the manager.
-        // And if you don't want to respond, it's useless to do anything while the manager is started.
-        if (mBMapMan != null) {
-            mBMapMan.start();
-        }
         super.onResume();
     }
 
@@ -50,6 +45,7 @@ public class MainActivity extends FullScreenActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mMapView.onSaveInstanceState(outState);
+
     }
 
     @Override

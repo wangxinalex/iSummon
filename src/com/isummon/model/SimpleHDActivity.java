@@ -1,5 +1,7 @@
 package com.isummon.model;
 
+import java.io.Serializable;
+
 /**
  * 我们有一个活动的类HDActivity,而这是一个简化的类用于
  * 网络传输，减少负荷
@@ -11,7 +13,7 @@ package com.isummon.model;
  * 3. 已经开始但尚未结束，且不限制人数的活动
  * 4. 其他。
  */
-public class SimpleHDActivity {
+public class SimpleHDActivity implements Serializable {
     private int hdId;            //活动的id
     private String hdName;        //活动的名称
     private String hdOriginName;        //活动发起者的id，

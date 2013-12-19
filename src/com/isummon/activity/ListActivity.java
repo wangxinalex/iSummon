@@ -1,32 +1,37 @@
 package com.isummon.activity;
 
-import android.content.Context;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.isummon.R;
 import com.isummon.model.ActListMode;
 import com.isummon.model.HDType;
+import com.isummon.model.SimpleHDActivity;
 import com.isummon.net.FakeDataProvider;
-import com.isummon.view.SimpleHdAdapter;
+import com.isummon.widget.SimpleHdAdapter;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class ListActivity extends Activity {
 
+    private List<SimpleHDActivity> displayedActs;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
+
+        displayedActs = FakeDataProvider.getSimpleHDActivities();
 
         final Spinner submodeSpinner = (Spinner) findViewById(R.id.list_submode_selector);
         ArrayAdapter<HDType> submodeAdapter = new ArrayAdapter<HDType>(
@@ -84,7 +89,7 @@ public class ListActivity extends Activity {
 
         ListView listView = ((ListView)findViewById(R.id.list_content));
         listView.setAdapter(
-                new SimpleHdAdapter(this, FakeDataProvider.getSimpleHDActivities()));
+                new SimpleHdAdapter(this, displayedActs));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -98,6 +103,23 @@ public class ListActivity extends Activity {
     }
 
     public void doSearch(View v) {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.searching));
+        progressDialog.setCancelable(true);
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
 
+            }
+        });
+        progressDialog.show();
+    }
+
+    public void showOnMap(View v) {
+        Intent intent = new Intent(this, ActMapActivity.class);
+        intent.putExtra(ActMapActivity.SIMPLE_ACTS,
+                new ArrayList<SimpleHDActivity>(displayedActs));
+        startActivity(intent);
+        finish();
     }
 }

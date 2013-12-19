@@ -36,6 +36,13 @@
             android:layout_height="match_parent"
             android:layout_width="60dp" />
 
+        <Button
+            android:id="@+id/show_on_map"
+            android:onClick="showOnMap"
+            android:background="@drawable/earth"
+            android:layout_height="60dp"
+            android:layout_width="60dp" />
+
         </LinearLayout>
 
     <ListView

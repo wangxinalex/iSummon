@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.isummon.R;
-import com.isummon.view.ISummonMapView;
 
 /**
  * Created by horzwxy on 12/18/13.

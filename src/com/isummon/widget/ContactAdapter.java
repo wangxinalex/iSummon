@@ -1,0 +1,35 @@
+package com.isummon.widget;
+
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+
+import java.util.List;
+
+/**
+ * Created by horzwxy on 12/19/13.
+ */
+public class ContactAdapter extends BaseAdapter {
+
+    private List<Conta>
+
+    @Override
+    public int getCount() {
+        return 0;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return null;
+    }
+}

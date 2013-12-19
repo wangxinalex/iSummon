@@ -1,4 +1,4 @@
-package com.isummon.view;
+package com.isummon.widget;
 
 import android.content.Context;
 import android.content.Intent;

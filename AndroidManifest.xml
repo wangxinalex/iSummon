@@ -65,6 +65,8 @@
         <activity android:name=".activity.ShowHdDetailActivity"
             android:label="@string/title_activity_show"
             android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".activity.ActMapActivity"
+            android:label=""/>
     </application>
 
 </manifest>

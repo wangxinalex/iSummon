@@ -1,34 +1,24 @@
 package com.isummon.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.baidu.mapapi.BMapManager;
 import com.isummon.R;
-import com.isummon.view.ISummonMapView;
 
 /**
  * Created by horzwxy on 12/15/13.
  */
-public class PickMapAddressActivity extends Activity {
-
-    private ISummonMapView mMapView;
+public class PickMapAddressActivity extends MapActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pick_addr_map);
 
-        mMapView = (ISummonMapView) findViewById(R.id.bmapsView);
-
-        mMapView.setLongTouchAvailable(false);
         mMapView.setAddressPickedListener(new AddressPickedListener() {
             @Override
             public void onAddressPicked(double longitude, double latitude) {
@@ -86,34 +76,5 @@ public class PickMapAddressActivity extends Activity {
         public void onAddressPicked(double longitude, double latitude);
     }
 
-    @Override
-    protected void onDestroy() {
-        mMapView.destroy();
-        super.onDestroy();
-    }
 
-    @Override
-    protected void onPause() {
-        mMapView.onPause();
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        mMapView.onResume();
-        super.onResume();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
-
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mMapView.onRestoreInstanceState(savedInstanceState);
-    }
 }
