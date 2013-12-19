@@ -6,19 +6,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.isummon.R;
-import com.isummon.model.Contact;
 import com.isummon.model.UserModel;
 import com.isummon.net.NetHelper;
 import com.isummon.widget.ContactAdapter;
 
-import java.sql.Array;
 import java.util.Arrays;
 
 /**
@@ -42,10 +39,7 @@ public class AddContactActivity extends Activity {
         }
         else {
             UserModel user = NetHelper.findUserByName(username);
-            Contact contact = new Contact(user.getUserId(),
-                    user.getUserName(),
-                    user.getAvatar());
-            ContactAdapter adapter = new ContactAdapter(this, Arrays.asList(contact));
+            ContactAdapter adapter = new ContactAdapter(this, Arrays.asList(user));
             ListView listView = (ListView) findViewById(R.id.contact_search_result);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,10 +51,10 @@ public class AddContactActivity extends Activity {
         }
     }
 
-    private void showConfirmDialog(Contact contact) {
+    private void showConfirmDialog(UserModel contact) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.add_contact_confirm_1)
-        + contact.getTargetName() + getString(R.string.add_contact_confirm_2));
+        + contact.getNickName() + getString(R.string.add_contact_confirm_2));
         builder.setPositiveButton(R.string.add_contact_confirm_position,
                 new DialogInterface.OnClickListener() {
                     @Override

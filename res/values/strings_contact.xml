@@ -8,4 +8,9 @@
     <string name="add_contact_confirm_2">为好友吗？</string>
     <string name="add_contact_confirm_position">确定</string>
     <string name="add_contact_confirm_negative">重新搜索</string>
+
+    <string name="remove_contact_confirm_1">确定要从好友列表中删除</string>
+    <string name="remove_contact_confirm_2">吗？</string>
+    <string name="remove_contact_confirm_position">确定</string>
+    <string name="remove_contact_confirm_negative">取消</string>
 </resources>

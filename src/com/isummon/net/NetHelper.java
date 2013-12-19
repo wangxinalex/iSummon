@@ -263,7 +263,7 @@ public class NetHelper {
     }
 
     public static ArrayList<UserModel> getAllContacts() {
-        return null;
+        return FakeDataProvider.getContacts();
     }
 }
 

@@ -45,11 +45,13 @@ public class MainActivity extends Activity {
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
+            @Override
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(R.string.app_name);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
+            @Override
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(R.string.fake_nickname);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
