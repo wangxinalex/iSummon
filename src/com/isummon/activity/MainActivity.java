@@ -6,13 +6,18 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.baidu.mapapi.BMapManager;
 import com.isummon.R;
@@ -63,13 +68,32 @@ public class MainActivity extends Activity {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         mDrawer = (LinearLayout) findViewById(R.id.main_drawer);
+        mDrawer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                // block the touch event
+                return true;
+            }
+        });
 
         ListView options = (ListView) findViewById(R.id.main_drawer_options);
         options.setAdapter(new ArrayAdapter<OptionListItem>(
                 this,
                 android.R.layout.simple_list_item_1,
                 OptionListItem.values()
-        ));
+        ) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                convertView = super.getView(position, convertView, parent);
+                TextView textView = (TextView) convertView;
+                textView.setGravity(Gravity.CENTER);
+                textView.setLayoutParams(
+                        new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT)
+                );
+                return convertView;
+            }
+        });
         options.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -79,6 +103,7 @@ public class MainActivity extends Activity {
                         startActivity(new Intent(MainActivity.this, ManageContactActivity.class));
                         break;
                 }
+                mDrawerLayout.closeDrawers();
             }
         });
 
