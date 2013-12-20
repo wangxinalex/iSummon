@@ -59,9 +59,6 @@
         <activity android:name=".activity.PickMapAddressActivity"
             android:label="@string/pick_addr_from_map_title"/>
 
-        <activity android:name=".activity.SearchAddressActivity"
-            android:label="@string/search_addr_title"/>
-
         <activity android:name=".activity.ShowHdDetailActivity"
             android:label="@string/title_activity_show"
             android:theme="@android:style/Theme.Dialog"/>

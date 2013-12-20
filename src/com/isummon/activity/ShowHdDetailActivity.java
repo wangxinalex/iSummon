@@ -65,8 +65,8 @@ public class ShowHdDetailActivity extends Activity {
         if(hdActivity.getHdStatus() == HDStatus.CANCELED
                 || hdActivity.getHdStatus() == HDStatus.NO_VACANCY) {
             Button applyButton = (Button) findViewById(R.id.apply_in);
-            applyButton.setBackground(
-                    getResources().getDrawable(R.drawable.button_bg_disabled));
+            applyButton.setBackgroundResource(
+                    R.drawable.button_bg_disabled);
             applyButton.setText(R.string.not_available);
             applyButton.setEnabled(false);
         }

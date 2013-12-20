@@ -100,19 +100,6 @@ public class ListActivity extends Activity {
 
     }
 
-    public void doSearch(View v) {
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.searching));
-        progressDialog.setCancelable(true);
-        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-
-            }
-        });
-        progressDialog.show();
-    }
-
     private void showOnMap() {
         Intent intent = new Intent(this, ActMapActivity.class);
         intent.putExtra(ActMapActivity.SIMPLE_ACTS,

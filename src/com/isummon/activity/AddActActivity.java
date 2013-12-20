@@ -464,10 +464,6 @@ public class AddActActivity extends Activity {
 
     private void onChooseSearch() {
         Toast.makeText(this, R.string.search_not_available, Toast.LENGTH_SHORT).show();
-//        startActivityForResult(
-//                new Intent(this, SearchAddressActivity.class),
-//                GET_ADDRESS
-//        );
     }
 
 

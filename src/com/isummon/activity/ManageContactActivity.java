@@ -17,6 +17,7 @@ import com.isummon.R;
 import com.isummon.model.UserModel;
 import com.isummon.net.NetHelper;
 import com.isummon.widget.ContactAdapter;
+import com.isummon.widget.ProgressTaskBundle;
 
 import java.util.List;
 
@@ -42,37 +43,20 @@ public class ManageContactActivity extends Activity {
     }
 
     private void fetchContacts() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        final AsyncTask<Void, Void, List<UserModel>> task
-                = new AsyncTask<Void, Void, List<UserModel>>() {
+        new ProgressTaskBundle<Void, List<UserModel>>(
+                this,
+                R.string.loading_contacts
+        ) {
             @Override
-            protected List<UserModel> doInBackground(Void... params) {
+            protected List<UserModel> doWork(Void... params) {
                 return NetHelper.getAllContacts();
             }
 
             @Override
-            protected void onPostExecute(List<UserModel> contacts) {
-                progressDialog.dismiss();
-                updateList(contacts);
+            protected void dealResult(List<UserModel> result) {
+                updateList(result);
             }
-
-            @Override
-            protected void onCancelled() {
-                progressDialog.dismiss();
-            }
-        };
-        progressDialog.setMessage(getString(R.string.loading_contacts));
-        progressDialog.setCancelable(true);
-        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                task.cancel(true);
-            }
-        });
-        progressDialog.show();
-
-        task.execute();
-
+        }.action();
     }
 
     private void updateList(List<UserModel> contacts) {

@@ -20,4 +20,8 @@
     <string name="invite_finished">我已经选好了！</string>
     <string name="invite_cancle">暂不邀请</string>
     <string name="no_contact">你还没有关联好友</string>
+
+    <string name="submitting_invitation">正在提交邀请...</string>
+    <string name="submitting_success">提交成功</string>
+    <string name="submitting_failed">提交失败，请重试</string>
 </resources>

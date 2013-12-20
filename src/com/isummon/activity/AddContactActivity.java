@@ -14,11 +14,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.isummon.R;
+import com.isummon.model.SimpleHDActivity;
 import com.isummon.model.UserModel;
 import com.isummon.net.NetHelper;
 import com.isummon.widget.ContactAdapter;
+import com.isummon.widget.ProgressTaskBundle;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by horzwxy on 12/19/13.
@@ -42,24 +45,24 @@ public class AddContactActivity extends Activity {
             return;
         }
         else {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            final AsyncTask<String, Void, UserModel> searchTask
-                    = new AsyncTask<String, Void, UserModel>() {
+            new ProgressTaskBundle<String, UserModel>(
+                    this,
+                    R.string.searching
+            ) {
                 @Override
-                protected UserModel doInBackground(String... strings) {
-                    return NetHelper.findUserByName(strings[0]);
+                protected UserModel doWork(String... params) {
+                    return NetHelper.findUserByName(params[0]);
                 }
 
                 @Override
-                protected void onPostExecute(UserModel userModel) {
-                    progressDialog.dismiss();
-                    if(userModel == null) {
+                protected void dealResult(UserModel result) {
+                    if(result == null) {
                         Toast.makeText(AddContactActivity.this,
                                 R.string.no_user_found,
                                 Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        ContactAdapter adapter = new ContactAdapter(AddContactActivity.this, Arrays.asList(userModel));
+                        ContactAdapter adapter = new ContactAdapter(AddContactActivity.this, Arrays.asList(result));
                         ListView listView = (ListView) findViewById(R.id.contact_search_result);
                         listView.setVisibility(View.VISIBLE);
                         listView.setAdapter(adapter);
@@ -71,17 +74,7 @@ public class AddContactActivity extends Activity {
                         });
                     }
                 }
-            };
-            progressDialog.setMessage(getString(R.string.searching));
-            progressDialog.setCancelable(true);
-            progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    searchTask.cancel(true);
-                }
-            });
-            progressDialog.show();
-            searchTask.execute(username);
+            }.action(username);
         }
     }
 

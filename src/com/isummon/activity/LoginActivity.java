@@ -26,9 +26,12 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.isummon.R;
+import com.isummon.model.UserModel;
 import com.isummon.net.NetHelper;
+import com.isummon.widget.ProgressTaskBundle;
 
 
 /**
@@ -89,17 +92,79 @@ public class LoginActivity extends Activity {
      * do signing in work
      */
     public void login(View v) {
-        //showSigningInProgress();
-        attemptLogin();
-        // now, skip the authenticating logic
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
 
+        // Store values at the time of the login attempt.
+        mEmail = mEmailView.getText().toString();
+        mPassword = mPasswordView.getText().toString();
+
+        boolean shouldCancel = false;
+        View focusView = null;
+
+        // Check for a valid password.
+        if (TextUtils.isEmpty(mPassword)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            shouldCancel = true;
+        } else if (mPassword.length() < 4) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            shouldCancel = true;
+        }
+
+        // todo email check result overrides pwd check result
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(mEmail)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            shouldCancel = true;
+            // todo email format check
+        } else if (!mEmail.contains("@")) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            shouldCancel = true;
+        }
+
+        if (shouldCancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            new ProgressTaskBundle<String, Integer>(
+                    this,
+                    R.string.login_progress_signing_in
+            ) {
+                @Override
+                protected Integer doWork(String... params) {
+                    return NetHelper.login(params[0], params[1]);
+                }
+
+                @Override
+                protected void dealResult(Integer result) {
+                    if(result < 0) {
+                        Toast.makeText(
+                                LoginActivity.this,
+                                R.string.sign_in_failed,
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                    else {
+                        Intent intent = new Intent();
+                        intent.setClass(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            }.action(mEmail, mPassword);
+        }
     }
 
     /**
      * do registering work
      */
     public void register(View v) {
-
+        // check register forms
     }
 
     /**
@@ -152,98 +217,4 @@ public class LoginActivity extends Activity {
         getMenuInflater().inflate(R.menu.login, menu);
         return true;
     }
-
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
-    public void attemptLogin() {
-
-        // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
-
-        // Store values at the time of the login attempt.
-        mEmail = mEmailView.getText().toString();
-        mPassword = mPasswordView.getText().toString();
-
-        boolean shouldCancel = false;
-        View focusView = null;
-
-        // Check for a valid password.
-        if (TextUtils.isEmpty(mPassword)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView;
-            shouldCancel = true;
-        } else if (mPassword.length() < 4) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            shouldCancel = true;
-        }
-
-        // todo email check result overrides pwd check result
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(mEmail)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            shouldCancel = true;
-            // todo email format check
-        } else if (!mEmail.contains("@")) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            shouldCancel = true;
-        }
-
-        if (shouldCancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
-            showSigningInProgress();
-
-            new Thread() {
-                @Override
-                public void run() {
-                    NetHelper.login("hello","world!");
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mDialog.dismiss();
-                            Intent intent = new Intent();
-                            intent.setClass(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                }
-            }.start();
-        }
-    }
-
-    private void showSigningInProgress() {
-        mDialog = new ProgressDialog(this);
-        mDialog.setMessage(getString(R.string.login_progress_signing_in));
-        mDialog.setCancelable(true);
-        mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-
-            }
-        });
-        mDialog.show();
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-
 }

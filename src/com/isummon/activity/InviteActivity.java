@@ -13,11 +13,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.isummon.R;
+import com.isummon.model.Invitation;
 import com.isummon.model.UserModel;
 import com.isummon.net.NetHelper;
 import com.isummon.widget.ContactAdapter;
+import com.isummon.widget.ProgressTaskBundle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,36 +48,28 @@ public class InviteActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        final AsyncTask<Void, Void, List<UserModel>> fetchTask
-                = new AsyncTask<Void, Void, List<UserModel>>() {
+        new ProgressTaskBundle<Void, List<UserModel>>(
+                this,
+                R.string.loading_contacts
+        ) {
             @Override
-            protected List<UserModel> doInBackground(Void... params) {
+            protected List<UserModel> doWork(Void... params) {
                 return NetHelper.getAllContacts();
             }
 
             @Override
-            protected void onPostExecute(List<UserModel> userModels) {
-                if(userModels.size() == 0) {
+            protected void dealResult(List<UserModel> result) {
+                if(result.size() == 0) {
                     Button submitButton = (Button) findViewById(R.id.submit_invitation);
                     submitButton.setText(R.string.no_contact);
                     submitButton.setEnabled(false);
                 }
                 else {
                     findViewById(R.id.contact_list).setVisibility(View.VISIBLE);
-                    updateContactList(userModels);
+                    updateContactList(result);
                 }
             }
-        };
-        progressDialog.setMessage(getString(R.string.loading_contacts));
-        progressDialog.setCancelable(true);
-        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                fetchTask.cancel(true);
-            }
-        });
-        fetchTask.execute();
+        }.action();
     }
 
     private void updateContactList(List<UserModel> contacts) {
@@ -106,7 +101,30 @@ public class InviteActivity extends Activity {
     }
 
     public void submitInivitation(View v) {
-        finish();
+        new ProgressTaskBundle<Invitation, Integer>(
+                this,
+                R.string.submitting_invitation
+        ) {
+            @Override
+            protected Integer doWork(Invitation... params) {
+                return 0;
+            }
+
+            @Override
+            protected void dealResult(Integer result) {
+                if(result == 0) {
+                    Toast.makeText(InviteActivity.this,
+                            R.string.submitting_success,
+                            Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else {
+                    Toast.makeText(InviteActivity.this,
+                            R.string.submitting_failed,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.action();
     }
 
     public void skip(View v) {

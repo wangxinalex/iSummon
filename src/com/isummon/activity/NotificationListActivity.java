@@ -14,6 +14,7 @@ import com.isummon.model.HDActivity;
 import com.isummon.model.Notification;
 import com.isummon.net.NetHelper;
 import com.isummon.widget.NotificationAdapter;
+import com.isummon.widget.ProgressTaskBundle;
 import com.isummon.widget.TaskProgressDialog;
 
 import java.util.List;
@@ -33,31 +34,26 @@ public class NotificationListActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        final TaskProgressDialog progressDialog = new TaskProgressDialog(
+        new ProgressTaskBundle<Void, List<Notification>>(
                 this,
                 R.string.fetching_notifications
-        );
-        AsyncTask<Void, Void, List<Notification>> fetchTask = new AsyncTask<Void, Void, List<Notification>>() {
+        ) {
             @Override
-            protected List<Notification> doInBackground(Void... params) {
+            protected List<Notification> doWork(Void... params) {
                 return NetHelper.getNotifications();
             }
 
             @Override
-            protected void onPostExecute(List<Notification> notifications) {
-                progressDialog.dismiss();
-                if (notifications.size() != 0) {
-                    updateList(notifications);
+            protected void dealResult(List<Notification> result) {
+                if (result.size() != 0) {
+                    updateList(result);
                 } else {
                     Toast.makeText(NotificationListActivity.this,
                             R.string.no_notification,
                             Toast.LENGTH_SHORT).show();
                 }
             }
-        };
-        progressDialog.setTask(fetchTask);
-        progressDialog.show();
-        fetchTask.execute();
+        }.action();
     }
 
     private void updateList(List<Notification> notifications) {
@@ -72,27 +68,24 @@ public class NotificationListActivity extends Activity {
     }
 
     private void onShowDetails(int id) {
-        TaskProgressDialog progressDialog = new TaskProgressDialog(
+        new ProgressTaskBundle<Integer, HDActivity>(
                 this,
-                R.string.fetching_act);
-        AsyncTask<Integer, Void, HDActivity> fetchTask =
-                new AsyncTask<Integer, Void, HDActivity>() {
-                    @Override
-                    protected HDActivity doInBackground(Integer... params) {
-                        return NetHelper.getHDActivityById(params[0]);
-                    }
+                R.string.fetching_act
+        ) {
+            @Override
+            protected HDActivity doWork(Integer... params) {
+                return NetHelper.getHDActivityById(params[0]);
+            }
 
-                    @Override
-                    protected void onPostExecute(HDActivity hdActivity) {
-                        Intent intent = new Intent(
-                                NotificationListActivity.this,
-                                ShowHdDetailActivity.class);
-                        intent.putExtra(ShowHdDetailActivity.HDACTIVITY,
-                                hdActivity);
-                        startActivity(intent);
-                    }
-                };
-        progressDialog.setTask(fetchTask);
-        fetchTask.execute(id);
+            @Override
+            protected void dealResult(HDActivity result) {
+                Intent intent = new Intent(
+                        NotificationListActivity.this,
+                        ShowHdDetailActivity.class);
+                intent.putExtra(ShowHdDetailActivity.HDACTIVITY,
+                        result);
+                startActivity(intent);
+            }
+        }.action(id);
     }
 }
