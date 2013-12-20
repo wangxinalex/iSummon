@@ -67,17 +67,11 @@ public class ListActivity extends Activity {
         modeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                findViewById(R.id.list_search_content).setEnabled(false);
-                findViewById(R.id.search_button).setEnabled(false);
                 submodeSpinner.setEnabled(false);
 
                 ActListMode mode = (ActListMode)parent.getItemAtPosition(position);
                 switch (mode) {
                     case ALL:
-                        break;
-                    case ORIGIN:
-                        findViewById(R.id.list_search_content).setEnabled(true);
-                        findViewById(R.id.search_button).setEnabled(true);
                         break;
                     case TYPE:
                         submodeSpinner.setEnabled(true);

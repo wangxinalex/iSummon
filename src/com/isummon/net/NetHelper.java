@@ -174,7 +174,7 @@ public class NetHelper {
      * @param hdActivity 活动详情
      * @return 添加后的活动id，添加失败返回-1
      */
-    public static int addHDActivity(int userId, HDActivity hdActivity) {
+    public static int addHDActivity(HDActivity hdActivity) {
         int hdId = 0; // add hdactivity
         return hdId;
     }

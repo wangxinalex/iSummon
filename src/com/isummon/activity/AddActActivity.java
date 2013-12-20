@@ -1,12 +1,12 @@
 package com.isummon.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -21,6 +21,8 @@ import com.isummon.R;
 import com.isummon.model.HDActivity;
 import com.isummon.model.HDProperty;
 import com.isummon.model.HDType;
+import com.isummon.net.NetHelper;
+import com.isummon.widget.ProgressTaskBundle;
 
 import java.util.Calendar;
 
@@ -130,15 +132,7 @@ public class AddActActivity extends Activity {
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast(R.string.add_success);
-                finish();
-                toInivite();
-//                if(checkAndPrompt()) {
-//
-//                }
-//                else {
-//                    //showToast(R.string.add_failed);
-//                }
+                onSubmit();
             }
         });
 
@@ -166,9 +160,37 @@ public class AddActActivity extends Activity {
         }
     }
 
-    private void toInivite() {
+    private void onSubmit() {
+        new ProgressTaskBundle<HDActivity, Integer>(
+                this,
+                R.string.add_waiting) {
+            @Override
+            protected Integer doWork(HDActivity... params) {
+                return NetHelper.addHDActivity(params[0]);
+            }
+
+            @Override
+            protected void dealResult(Integer result) {
+                if (result < 0) {
+                    showToast(R.string.add_failed);
+                } else {
+                    showToast(R.string.add_success);
+                    finish();
+                    toInivite(result);
+                }
+            }
+        }.action(result);
+//                if(checkAndPrompt()) {
+//
+//                }
+//                else {
+//                    //showToast(R.string.add_failed);
+//                }
+    }
+
+    private void toInivite(int hdId) {
         Intent intent = new Intent(this, InviteActivity.class);
-        intent.putExtra(InviteActivity.HD_ID, 0);
+        intent.putExtra(InviteActivity.HD_ID, hdId);
         startActivity(intent);
     }
 

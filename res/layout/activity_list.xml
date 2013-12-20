@@ -21,21 +21,6 @@
             android:layout_height="match_parent"
             android:layout_width="wrap_content"/>
 
-        <EditText
-            android:id="@+id/list_search_content"
-            android:hint="@string/search_content_hint"
-            android:enabled="false"
-            android:layout_height="match_parent"
-            android:layout_width="200dp" />
-
-        <Button
-            android:id="@+id/search_button"
-            android:onClick="doSearch"
-            android:background="@android:drawable/ic_search_category_default"
-            android:enabled="false"
-            android:layout_height="match_parent"
-            android:layout_width="60dp" />
-
         </LinearLayout>
 
     <ListView

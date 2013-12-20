@@ -42,7 +42,6 @@
 
             <TextView
                 android:id="@+id/origin_name"
-                android:text="horzwxy"
                 android:textSize="@dimen/act_list_origin_name_size"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content" />
@@ -55,7 +54,6 @@
 
             <TextView
                 android:id="@+id/hd_name"
-                android:text="去加班吧！！！"
                 android:textSize="@dimen/act_list_origin_name_size"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content" />
@@ -67,8 +65,7 @@
             android:id="@+id/status"
             android:textSize="@dimen/act_list_other_text_size"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="正在找人" />
+            android:layout_width="wrap_content"/>
 
 
     </LinearLayout>

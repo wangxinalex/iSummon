@@ -5,7 +5,6 @@ package com.isummon.model;
  */
 public enum ActListMode {
     ALL("所有活动"),
-    ORIGIN("发起人"),
     TYPE("活动类型");
 
     private String chn;
