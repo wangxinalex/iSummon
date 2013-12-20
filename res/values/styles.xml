@@ -50,28 +50,34 @@
     </style>
 
     <!-- Add act activity style -->
-    <style name="AddActLineBase">
+    <style name="FormLineBase">
+        <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">#000</item>
+        <item name="android:textSize">@dimen/form_text_size</item>
+    </style>
+
+    <style name="FormLineOpaque" parent="FormLineBase">
+        <item name="android:background">@drawable/white_bg_grey_border</item>
+    </style>
+
+    <style name="FormLineFull" parent="FormLineOpaque">
         <item name="android:layout_width">@dimen/add_act_form_width</item>
         <item name="android:layout_height">@dimen/add_act_form_height</item>
     </style>
 
-    <style name="AddActTopLine" parent="AddActLineBase">
-        <item name="android:background">@drawable/login_form</item>
-    </style>
-
-    <style name="AddActLine" parent="AddActTopLine">
+    <style name="FormLine" parent="FormLineFull">
         <item name="android:layout_marginTop">@dimen/add_act_form_line_padding</item>
     </style>
 
-    <style name="AddActTransparentLine" parent="AddActLineBase">
+    <style name="FormLineTransparent" parent="FormLineBase">
+        <item name="android:layout_width">@dimen/add_act_form_width</item>
+        <item name="android:layout_height">@dimen/add_act_form_height</item>
         <item name="android:layout_marginTop">@dimen/add_act_form_line_padding</item>
     </style>
 
-    <style name="AddActLineHalf">
+    <style name="FormLineHalf" parent="FormLineOpaque">
         <item name="android:layout_width">@dimen/add_act_form_half_width</item>
         <item name="android:layout_height">@dimen/add_act_form_height</item>
-        <item name="android:background">@drawable/login_form</item>
     </style>
 
     <style name="AddActButtons">
@@ -87,7 +93,7 @@
         <item name="android:paddingLeft">20dp</item>
     </style>
 
-    <style name="ShowActLineTop" parent="AddActTopLine">
+    <style name="ShowActLineTop" parent="FormLineFull">
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
@@ -96,7 +102,7 @@
         <item name="android:layout_marginTop">@dimen/add_act_form_line_padding</item>
     </style>
 
-    <style name="ShowActButtonHighlighted" parent="AddActLineBase">
+    <style name="ShowActButtonHighlighted" parent="FormLineFull">
         <item name="android:layout_marginTop">@dimen/add_act_form_line_padding</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">18sp</item>

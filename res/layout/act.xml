@@ -6,67 +6,67 @@
 
     <EditText
         android:id="@+id/actName"
-        style="@style/AddActTopLine"
+        style="@style/FormLineFull"
         android:hint="@string/act_name_prompt">
     </EditText>
 
     <EditText
         android:id="@+id/actPlace"
-        style="@style/AddActLine"
+        style="@style/FormLine"
         android:editable="false"
         android:hint="@string/act_place_prompt"/>
 
     <RelativeLayout
-        style="@style/AddActTransparentLine">
+        style="@style/FormLineTransparent">
         <EditText
             android:id="@+id/add_act_start_date"
             android:layout_alignParentLeft="true"
-            style="@style/AddActLineHalf"
+            style="@style/FormLineHalf"
             android:editable="false"
             android:hint="@string/act_start_date_prompt"/>
 
         <EditText
             android:id="@+id/add_act_start_time"
             android:layout_alignParentRight="true"
-            style="@style/AddActLineHalf"
+            style="@style/FormLineHalf"
             android:editable="false"
             android:hint="@string/act_start_time_prompt"/>
 
     </RelativeLayout>
 
     <RelativeLayout
-        style="@style/AddActTransparentLine">
+        style="@style/FormLineTransparent">
         <EditText
             android:id="@+id/add_act_end_date"
             android:layout_alignParentLeft="true"
-            style="@style/AddActLineHalf"
+            style="@style/FormLineHalf"
             android:editable="false"
             android:hint="@string/act_end_date_prompt"/>
         <EditText
             android:id="@+id/add_act_end_time"
             android:layout_alignParentRight="true"
-            style="@style/AddActLineHalf"
+            style="@style/FormLineHalf"
             android:editable="false"
             android:hint="@string/act_end_time_prompt"/>
     </RelativeLayout>
 
     <EditText
         android:id="@+id/actContent"
-        style="@style/AddActLine"
+        style="@style/FormLine"
         android:hint="@string/act_content_prompt"/>
 
     <RelativeLayout
-        style="@style/AddActTransparentLine">
+        style="@style/FormLineTransparent">
         <EditText
             android:id="@+id/act_type_prompt"
-            style="@style/AddActTopLine"
+            style="@style/FormLineFull"
             android:editable="false"
             android:hint="@string/act_type_prompt"/>
         <LinearLayout
             android:id="@+id/act_type_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            style="@style/AddActTopLine">
+            style="@style/FormLineFull">
             <ImageView
                 android:id="@+id/act_type_image"
                 android:layout_marginLeft="@dimen/add_act_type_image_left_margin"
@@ -76,7 +76,7 @@
                 android:id="@+id/act_type_name"
                 android:layout_marginLeft="@dimen/add_act_type_text_left_margin"
                 android:textColor="#000"
-                android:textSize="@dimen/add_act_form_text_size"
+                android:textSize="@dimen/form_text_size"
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
@@ -84,16 +84,16 @@
     </RelativeLayout>
 
     <RelativeLayout
-        style="@style/AddActTransparentLine">
+        style="@style/FormLineTransparent">
         <EditText
             android:id="@+id/act_max_participants"
-            style="@style/AddActLineHalf"
+            style="@style/FormLineHalf"
             android:inputType="numberDecimal"
             android:hint="@string/act_participants_max_prompt" />
         <EditText
             android:id="@+id/act_property"
             android:layout_alignParentRight="true"
-            style="@style/AddActLineHalf"
+            style="@style/FormLineHalf"
             android:editable="false"
             android:hint="@string/act_property_prompt"/>
     </RelativeLayout>

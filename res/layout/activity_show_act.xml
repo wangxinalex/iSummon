@@ -43,7 +43,7 @@
             android:id="@+id/act_type_name"
             android:layout_marginLeft="@dimen/add_act_type_text_left_margin"
             android:textColor="#000"
-            android:textSize="@dimen/add_act_form_text_size"
+            android:textSize="@dimen/form_text_size"
             android:gravity="center_vertical"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />
