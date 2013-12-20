@@ -71,6 +71,9 @@
             android:label="@string/title_manage_contact"/>
         <activity android:name=".activity.AddContactActivity"
             android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".activity.InviteActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:label="@string/invite_prompt"/>
     </application>
 
 </manifest>
