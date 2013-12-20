@@ -1,7 +1,6 @@
 package com.isummon.activity;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -23,11 +22,9 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.BMapManager;
 import com.isummon.R;
-import com.isummon.model.HDActivity;
 import com.isummon.model.OptionListItem;
 import com.isummon.model.SimpleHDActivity;
 import com.isummon.net.FakeDataProvider;
-import com.isummon.net.NetHelper;
 import com.isummon.widget.ISummonMapView;
 import com.isummon.widget.ProgressTaskBundle;
 
@@ -116,9 +113,7 @@ public class MainActivity extends Activity {
                         startActivity(new Intent(MainActivity.this, NotificationListActivity.class));
                         break;
                     case VIEW_ALL:
-                        Intent intent = new Intent();
-                        intent.setClass(getApplicationContext(), ListActivity.class);
-                        startActivity(intent);
+                        onListAllActs();
                         break;
                     case ADD_ACT:
                         startActivity(new Intent(getApplicationContext(), AddActActivity.class));
@@ -221,6 +216,27 @@ public class MainActivity extends Activity {
         }
 
         return true;
+    }
+
+    private void onListAllActs() {
+        new ProgressTaskBundle<Void, List<SimpleHDActivity>>(
+                this,
+                R.string.searching
+        ) {
+            @Override
+            protected List<SimpleHDActivity> doWork(Void... params) {
+                return FakeDataProvider.getSimpleHDActivities();
+            }
+
+            @Override
+            protected void dealResult(List<SimpleHDActivity> result) {
+                Intent intent = new Intent();
+                intent.putExtra(ListActivity.SIMPLE_ACTS,
+                        new ArrayList<SimpleHDActivity>(result));
+                intent.setClass(getApplicationContext(), ListActivity.class);
+                startActivity(intent);
+            }
+        }.action();
     }
 
     private void onQuery(String query) {

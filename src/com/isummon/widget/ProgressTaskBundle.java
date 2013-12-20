@@ -44,7 +44,7 @@ public abstract class ProgressTaskBundle<P, R> {
         };
     }
 
-    public void action(P... params) {
+    public final void action(P... params) {
         progressDialog.show();
         task.execute(params);
     }
