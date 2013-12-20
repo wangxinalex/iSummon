@@ -2,22 +2,17 @@ package com.isummon.activity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -30,7 +25,7 @@ import com.isummon.model.HDType;
 import java.util.Calendar;
 
 
-public class AddActivity extends Activity {
+public class AddActActivity extends Activity {
 
     static final String ADDRESS_NAME = "address_name";
     static final String LONGITUDE = "longitude";
@@ -57,7 +52,7 @@ public class AddActivity extends Activity {
 		setContentView(R.layout.activity_add);
 
         // Only set bg in layout file is not enough: a dark bg still exists.
-        getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg);
+        getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg_white);
 
         result = new HDActivity();
         hdStartDate = hdEndDate = hdStartTime = hdEndTime = Calendar.getInstance();
@@ -135,12 +130,15 @@ public class AddActivity extends Activity {
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkAndPrompt()) {
-                    showToast(R.string.add_success);
-                }
-                else {
-                    //showToast(R.string.add_failed);
-                }
+                showToast(R.string.add_success);
+                finish();
+                toInivite();
+//                if(checkAndPrompt()) {
+//
+//                }
+//                else {
+//                    //showToast(R.string.add_failed);
+//                }
             }
         });
 
@@ -166,6 +164,12 @@ public class AddActivity extends Activity {
                 // on error
             }
         }
+    }
+
+    private void toInivite() {
+        Intent intent = new Intent(this, InviteActivity.class);
+        intent.putExtra(InviteActivity.HD_ID, 0);
+        startActivity(intent);
     }
 
     private void showPropertyPicker() {

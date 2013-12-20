@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_contact">添加好友</string>
+    <string name="loading_contacts">正在获取好友列表</string>
+    <string name="input_username">请输入要添加的好友昵称</string>
+    <string name="error_input_empty">输入不能为空</string>
+    <string name="add_contact_confirm_1">确定要添加</string>
+    <string name="add_contact_confirm_2">为好友吗？</string>
+    <string name="add_contact_confirm_position">确定</string>
+    <string name="add_contact_confirm_negative">重新搜索</string>
+
+    <string name="remove_contact_confirm_1">确定要从好友列表中删除</string>
+    <string name="remove_contact_confirm_2">吗？</string>
+    <string name="remove_contact_confirm_position">确定</string>
+    <string name="remove_contact_confirm_negative">取消</string>
+
+    <string name="no_user_found">查无此人</string>
+
+    <string name="invite_prompt">邀请好友参加活动</string>
+    <string name="invite_finished">我已经选好了！</string>
+    <string name="invite_cancle">暂不邀请</string>
+    <string name="no_contact">你还没有关联好友</string>
+</resources>

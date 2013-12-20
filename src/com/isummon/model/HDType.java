@@ -2,10 +2,12 @@ package com.isummon.model;
 
 import com.isummon.R;
 
+import java.io.Serializable;
+
 /**
  * Created by horzwxy on 12/15/13.
  */
-public enum HDType {
+public enum HDType implements Serializable {
     SPORT(R.drawable.sport, "运动"),
     STUDY(R.drawable.study, "学习"),
     ENTERTAINMENT(R.drawable.entertainment, "娱乐"),
@@ -35,5 +37,10 @@ public enum HDType {
             result[i] = types[i].getChn();
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return this.chn;
     }
 }

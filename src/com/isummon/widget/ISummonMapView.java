@@ -1,12 +1,10 @@
-package com.isummon.view;
+package com.isummon.widget;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.Toast;
 
 import com.baidu.mapapi.map.ItemizedOverlay;
 import com.baidu.mapapi.map.MKMapTouchListener;
@@ -15,14 +13,14 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.isummon.R;
-import com.isummon.activity.AddActivity;
+import com.isummon.activity.AddActActivity;
 import com.isummon.activity.PickMapAddressActivity;
-import com.isummon.activity.ShowActivity;
+import com.isummon.activity.ShowHdDetailActivity;
 import com.isummon.model.SimpleHDActivity;
+import com.isummon.net.FakeDataProvider;
 import com.isummon.net.NetHelper;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -68,8 +66,8 @@ public class ISummonMapView extends MapView {
                 mOverlay.addItem(new OverlayItem(point, "", ""));
                 refresh();
 
-                // I don't know why, but MapView completes invalidating not before the AddActivity starts
-                // So I cannot see the newly-added balloon through the AddActivity background
+                // I don't know why, but MapView completes invalidating not before the AddActActivity starts
+                // So I cannot see the newly-added balloon through the AddActActivity background
                 // this is the dummy solution: delay starting activity
                 // todo
                 Timer timer = new Timer();
@@ -117,7 +115,7 @@ public class ISummonMapView extends MapView {
     }
 
     private void showAddActActivity(double longitude, double latitude) {
-        Intent intent = new Intent(getContext(), AddActivity.class);
+        Intent intent = new Intent(getContext(), AddActActivity.class);
         intent.putExtra("longitude", longitude);
         intent.putExtra("latitude", latitude);
         getContext().startActivity(intent);
@@ -179,7 +177,9 @@ public class ISummonMapView extends MapView {
             getItem(index);
 //			Toast.makeText(getApplicationContext(), "item index: " + index + " content: " + item.getTitle(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
-            intent.setClass(getContext().getApplicationContext(), ShowActivity.class);
+            // how can I get hdId?
+            //intent.putExtra(ShowHdDetailActivity.HDACTIVITY, FakeDataProvider.getHDById(index));
+            intent.setClass(getContext().getApplicationContext(), ShowHdDetailActivity.class);
             intent.putExtra("index", index);
             getContext().startActivity(intent);
             return false;

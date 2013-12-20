@@ -1,6 +1,8 @@
 package com.isummon.model;
 
-public class HDActivity {
+import java.io.Serializable;
+
+public class HDActivity implements Serializable {
 	public static final String tmFormat = "yyyy-MM-dd:hhmm";
 
     private int hdId;
@@ -9,8 +11,9 @@ public class HDActivity {
     private double longitude;
     private double latitude;
 	private String hdStartTime;
-	private String hdEndTime;
+    private String hdEndTime;
 	private int hdOrigin;
+    private String hdOriginName;
 	private String hdDesc;
 	private HDType hdType;
 	private int hdNumLimit;
@@ -95,6 +98,8 @@ public class HDActivity {
         this.latitude = latitude;
     }
 
+    public void setHdId(int id) { this.hdId = id; }
+
     public int getHdId() {
         return hdId;
     }
@@ -121,5 +126,26 @@ public class HDActivity {
 
     public void setHdProperty(HDProperty hdProperty) {
         this.hdProperty = hdProperty;
+    }
+
+    public String getHdOriginName() {
+        return hdOriginName;
+    }
+
+    public void setHdOriginName(String hdOriginName) {
+        this.hdOriginName = hdOriginName;
+    }
+
+    public SimpleHDActivity getSimpleModel() {
+        return new SimpleHDActivity(
+                hdId,
+                hdName,
+                hdOrigin,
+                hdOriginName,
+                longitude,
+                latitude,
+                hdType,
+                hdStatus
+        );
     }
 }

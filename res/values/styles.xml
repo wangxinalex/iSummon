@@ -49,7 +49,8 @@
     </style>
 
     <!-- Add act activity style -->
-    <style name="AddActLineBase" parent="AddActTopLine">
+    <style name="AddActLineBase">
+        <item name="android:textColor">#000</item>
         <item name="android:layout_width">@dimen/add_act_form_width</item>
         <item name="android:layout_height">@dimen/add_act_form_height</item>
     </style>
@@ -69,6 +70,7 @@
     <style name="AddActLineHalf">
         <item name="android:layout_width">@dimen/add_act_form_half_width</item>
         <item name="android:layout_height">@dimen/add_act_form_height</item>
+        <item name="android:background">@drawable/login_form</item>
     </style>
 
     <style name="AddActButtons">
@@ -82,6 +84,23 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:textSize">40sp</item>
         <item name="android:paddingLeft">20dp</item>
+    </style>
+
+    <style name="ShowActLineTop" parent="AddActTopLine">
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="ShowActLine" parent="ShowActLineTop">
+        <item name="android:layout_marginTop">@dimen/add_act_form_line_padding</item>
+    </style>
+
+    <style name="ShowActButtonHighlighted" parent="AddActLineBase">
+        <item name="android:layout_marginTop">@dimen/add_act_form_line_padding</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/button_bg_highlighted</item>
+        <item name="android:text">@string/apply_in</item>
     </style>
 
 </resources>
