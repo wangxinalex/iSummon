@@ -29,7 +29,7 @@
     <application
         android:name="com.isummon.activity.TestApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity

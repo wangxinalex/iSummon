@@ -2,7 +2,6 @@ package com.isummon.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,7 +14,6 @@ import com.isummon.model.Notification;
 import com.isummon.net.NetHelper;
 import com.isummon.widget.NotificationAdapter;
 import com.isummon.widget.ProgressTaskBundle;
-import com.isummon.widget.TaskProgressDialog;
 
 import java.util.List;
 
