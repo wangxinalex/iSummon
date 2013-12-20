@@ -103,6 +103,7 @@ public class MainActivity extends Activity {
                         startActivity(new Intent(MainActivity.this, ManageContactActivity.class));
                         break;
                     case MY_MESSAGE:
+                        startActivity(new Intent(MainActivity.this, NotificationListActivity.class));
                         break;
                     case VIEW_ALL:
                         Intent intent = new Intent();

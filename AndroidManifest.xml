@@ -74,6 +74,8 @@
         <activity android:name=".activity.InviteActivity"
             android:theme="@android:style/Theme.Dialog"
             android:label="@string/invite_prompt"/>
+        <activity android:name=".activity.NotificationListActivity"
+            android:label="@string/act_content_prompt"/>
     </application>
 
 </manifest>
