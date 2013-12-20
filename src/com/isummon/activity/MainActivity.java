@@ -1,6 +1,7 @@
 package com.isummon.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -17,12 +18,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.baidu.mapapi.BMapManager;
 import com.isummon.R;
+import com.isummon.model.HDActivity;
 import com.isummon.model.OptionListItem;
+import com.isummon.model.SimpleHDActivity;
+import com.isummon.net.FakeDataProvider;
+import com.isummon.net.NetHelper;
 import com.isummon.widget.ISummonMapView;
+import com.isummon.widget.ProgressTaskBundle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -168,6 +178,20 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setQueryHint("输入活动名称");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                onQuery(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -189,6 +213,31 @@ public class MainActivity extends Activity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_search:
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
+    }
+
+    private void onQuery(String query) {
+        new ProgressTaskBundle<String, List<SimpleHDActivity>>(this, R.string.searching) {
+            @Override
+            protected List<SimpleHDActivity> doWork(String... params) {
+                return FakeDataProvider.getSimpleHDActivities();
+            }
+
+            @Override
+            protected void dealResult(List<SimpleHDActivity> result) {
+                Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                intent.putExtra(
+                        ListActivity.SIMPLE_ACTS,
+                        new ArrayList<SimpleHDActivity>(result));
+                startActivity(intent);
+            }
+        }.action(query);
     }
 }

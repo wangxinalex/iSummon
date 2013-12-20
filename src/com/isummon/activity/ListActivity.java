@@ -26,6 +26,8 @@ import java.util.List;
 
 public class ListActivity extends Activity {
 
+    public static final String SIMPLE_ACTS = "simple_acts";
+
     private List<SimpleHDActivity> displayedActs;
 
 	@Override
@@ -33,7 +35,8 @@ public class ListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
-        displayedActs = FakeDataProvider.getSimpleHDActivities();
+        Intent intent = getIntent();
+        displayedActs = (List<SimpleHDActivity>) intent.getSerializableExtra(SIMPLE_ACTS);
 
         final Spinner submodeSpinner = (Spinner) findViewById(R.id.list_submode_selector);
         ArrayAdapter<HDType> submodeAdapter = new ArrayAdapter<HDType>(
@@ -46,7 +49,6 @@ public class ListActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 HDType type = (HDType) parent.getItemAtPosition(position);
-
             }
 
             @Override
