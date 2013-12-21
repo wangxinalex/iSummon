@@ -128,7 +128,7 @@ public class NetHelper {
      *
      * @return
      */
-    public static ArrayList<SimpleHDActivity> getCurrentSimpleHDActivities() {
+    public static ArrayList<SimpleHDActivity> getValidSimpleActs() {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -141,13 +141,13 @@ public class NetHelper {
         return retList;
     }
 
-    public static ArrayList<SimpleHDActivity> getSimpleHdByIdList(ArrayList<Integer> idList){
+    public static ArrayList<SimpleHDActivity> getSimpleActByIdList(ArrayList<Integer> idList){
         return null;
     }
 
-    public static List<Notification> getNotifications() {
-        return FakeDataProvider.getNotifications();
-    }
+    //public static List<Notification> getNotifications() {
+        //return FakeDataProvider.getNotifications();
+    //}
 
     /**
      * 查
@@ -160,7 +160,7 @@ public class NetHelper {
      * 1. 用户在地图图层上点击某活动，或用户在活动管理列表中点击该活动时，
      * 应跳转到ShowHDActivity界面，同时通过本方法获取活动详情并显示
      */
-    public static HDActivity getHDActivityById(int hdId) {
+    public static HDActivity getActById(int hdId) {
         return FakeDataProvider.getHDById(hdId);
     }
 
@@ -174,7 +174,7 @@ public class NetHelper {
      * @param hdActivity 活动详情
      * @return 添加后的活动id，添加失败返回-1
      */
-    public static int addHDActivity(HDActivity hdActivity) {
+    public static int addAct(HDActivity hdActivity) {
         int hdId = 0; // add hdactivity
         return hdId;
     }
@@ -191,7 +191,7 @@ public class NetHelper {
      * 2. HDActivity中有些属性是不能更改的，客户端不能将这些属性暴露给用户
      * 3. 更改活动之后服务器端应通知参加的用户
      */
-    public static boolean modifyHDActivity(HDActivity hdActivityNew) {
+    public static boolean modifyAct(HDActivity hdActivityNew) {
         return false;
     }
 
@@ -202,45 +202,45 @@ public class NetHelper {
      * @param hdId
      * @return
      */
-    public static boolean cancleHDActivity(int hdId) {
+    public static boolean cancleAct(int hdId) {
         return false;
     }
 
     //----------------------------------一系列的查询方法-------------------------------------------
 
     //我发起的活动
-    public static ArrayList<SimpleHDActivity> getHDActivityByOriginId(int userId) {
+    public static ArrayList<SimpleHDActivity> getActByOriginId(int userId) {
         return null;
     }
 
     //我参加的活动
-    public static ArrayList<SimpleHDActivity> getHDActivityByUserId(int userId) {
+    public static ArrayList<SimpleHDActivity> getActByParticipantId(int userId) {
         return null;
     }
 
     //查询某个人（使用昵称）发起的活动
     //[注意：？？？是否提供查询某个人参加的活动？？？隐私考虑的话应不提供接口]
-    public static ArrayList<SimpleHDActivity> getHDActivityByOriginerName(String originerName) {
+    public static ArrayList<SimpleHDActivity> getActByOriginName(String originerName) {
         return null;
     }
 
     //根据活动名称查询，如查询活动名称带有“三国杀”的活动
-    public static ArrayList<SimpleHDActivity> getHDActivityByHdName(String hdName) {
+    public static ArrayList<SimpleHDActivity> getActByName(String hdName) {
         return null;
     }
 
     //根据活动标签查询，如查询“娱乐”类的活动
-    public static ArrayList<SimpleHDActivity> getHDActivityByHdTag(String hdTag) {
+    public static ArrayList<SimpleHDActivity> getActByType(int hdType) {
         return null;
     }
 
     //查询某地点附近的活动，如“二教”附近的活动
-    public static ArrayList<SimpleHDActivity> getHDActivityByAddress(String hdAddress) {
+    public static ArrayList<SimpleHDActivity> getActByAddress(String hdAddress) {
         return null;
     }
 
     //查询某时间范围以内的活动，两个参数可以一个为null，如(startTime, null)表示startTime以后的所有活动
-    public static ArrayList<SimpleHDActivity> getHDActivityByTime(String startTime, String endTime) {
+    public static ArrayList<SimpleHDActivity> getActByTime(String startTime, String endTime) {
         return null;
     }
 
@@ -250,6 +250,8 @@ public class NetHelper {
     public static void invite(int hdId, ArrayList<Integer> targerIds) {
 
     }
+    public static List<Notification> getInvitationsByOriginId(int originId){}
+    public static List<Notification> getInvitationsByTargetId(int targetId){}
 
     /**
      *
@@ -260,11 +262,11 @@ public class NetHelper {
         return FakeDataProvider.findUserByName(nickname);
     }
 
-    public static void addContact(int targetId) {
+    public static void addContact(int originId, int targetId) {
 
     }
 
-    public static void removeContact(int targetId) {
+    public static void removeContact(int originId, int targetId) {
 
     }
 

@@ -14,6 +14,7 @@ public class Notification {
         this.hdName = hdName;
         this.originName = originName;
         this.originAvatar = originAvatar;
+        //isRead?
     }
 
     public String getOriginName() {
